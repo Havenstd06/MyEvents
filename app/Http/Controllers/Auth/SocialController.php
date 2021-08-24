@@ -68,7 +68,7 @@ class SocialController extends Controller
         } else {
 
             $user = User::create([
-                'name'                  => $providerUser->getName(),
+                'name'                  => $providerUser->getNickname(),
                 'email'                 => $providerUser->getEmail(),
                 'avatar'                => $providerUser->getAvatar(),
                 'provider'              => $driver,
