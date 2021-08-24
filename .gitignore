@@ -27,3 +27,5 @@ tmuxp.yml
 .vapor/
 .env.production
 .env.staging
+/public/css/app.css
+/public/js/app.js
