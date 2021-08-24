@@ -29,3 +29,4 @@ tmuxp.yml
 .env.staging
 /public/css/app.css
 /public/js/app.js
+/public/css/app.css
