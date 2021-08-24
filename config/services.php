@@ -30,4 +30,25 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'github' => [
+        'client_id'     => env('GITHUB_ID'),
+        'client_secret' => env('GITHUB_SECRET'),
+        'redirect'      => env('APP_URL') . '/oauth/github/callback',
+    ],
+
+    'twitter' => [
+        'client_id'     => env('TWITTER_CLIENT_ID'),
+        'client_secret' => env('TWITTER_CLIENT_SECRET'),
+        'redirect'      => env('APP_URL') . '/oauth/twitter/callback',
+    ],
+
+    'discord' => [
+        'client_id'                => env('DISCORD_ID'),
+        'client_secret'            => env('DISCORD_SECRET'),
+        'redirect'                 => env('APP_URL') . '/oauth/discord/callback',
+
+        'allow_gif_avatars'        => (bool)env('DISCORD_AVATAR_GIF', true),
+        'avatar_default_extension' => env('DISCORD_EXTENSION_DEFAULT', 'jpg'), // only pick from jpg, png, webp
+    ],
+
 ];

@@ -15,6 +15,11 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'eventbrite' => [
+        'endpoint'  => 'https://www.eventbriteapi.com/v3/',
+        'token'     => env('EVENTBRITE_TOKEN')
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
