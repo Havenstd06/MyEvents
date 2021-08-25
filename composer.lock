@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fb036269ae231b324d9e1dacc22a9a0",
+    "content-hash": "61eb16e76cd4c4fd574db280029111a8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3151,6 +3151,47 @@
                 "source": "https://github.com/SocialiteProviders/Manager/tree/4.0.1"
             },
             "time": "2020-12-01T23:09:06+00:00"
+        },
+        {
+            "name": "socialiteproviders/snapchat",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Snapchat.git",
+                "reference": "8d97c41cbd4f0daca57b28904f8372a182ecfb6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Snapchat/zipball/8d97c41cbd4f0daca57b28904f8372a182ecfb6e",
+                "reference": "8d97c41cbd4f0daca57b28904f8372a182ecfb6e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2 || ^8.0",
+                "socialiteproviders/manager": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Snapchat\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oleksandr Alekseichuk",
+                    "email": "avitlauak@gmail.com"
+                }
+            ],
+            "description": "Snapchat OAuth2 Provider for Laravel Socialite",
+            "support": {
+                "source": "https://github.com/SocialiteProviders/Snapchat/tree/4.1.0"
+            },
+            "time": "2020-12-01T23:10:59+00:00"
         },
         {
             "name": "socialiteproviders/twitter",

@@ -37,8 +37,8 @@ return [
     ],
 
     'twitter' => [
-        'client_id'     => env('TWITTER_CLIENT_ID'),
-        'client_secret' => env('TWITTER_CLIENT_SECRET'),
+        'client_id'     => env('TWITTER_ID'),
+        'client_secret' => env('TWITTER_SECRET'),
         'redirect'      => env('APP_URL') . '/oauth/twitter/callback',
     ],
 
@@ -49,6 +49,12 @@ return [
 
         'allow_gif_avatars'        => (bool)env('DISCORD_AVATAR_GIF', true),
         'avatar_default_extension' => env('DISCORD_EXTENSION_DEFAULT', 'jpg'), // only pick from jpg, png, webp
+    ],
+
+    'snapchat' => [
+        'client_id'     => env('SNAPCHAT_ID'),
+        'client_secret' => env('SNAPCHAT_SECRET'),
+        'redirect'      => env('APP_URL') . '/oauth/snapchat/callback',
     ],
 
 ];

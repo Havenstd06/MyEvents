@@ -16,7 +16,7 @@ use Intervention\Image\Facades\Image as InterImage;
 class SocialController extends Controller
 {
     protected $providers = [
-        'github', 'twitter', 'discord'
+        'github', 'twitter', 'discord', 'snapchat'
     ];
 
     public function redirectToProvider($driver)

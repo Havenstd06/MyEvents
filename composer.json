@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "socialiteproviders/discord": "^4.1",
         "socialiteproviders/github": "^4.1",
+        "socialiteproviders/snapchat": "^4.1",
         "socialiteproviders/twitter": "^4.1",
         "tightenco/ziggy": "^1.0"
     },
