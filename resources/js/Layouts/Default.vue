@@ -1,12 +1,12 @@
 <template>
-    <div class="h-screen bg-blueGray-900 text-gray-50">
+    <div class="h-full bg-blueGray-900 text-gray-50">
         <default-wave />
 
-        <div class="relative z-30">
+        <div>
             <navbar />
 
-            <div>
-                <slot></slot>
+            <div class="relative z-30">
+                <slot />
             </div>
         </div>
     </div>

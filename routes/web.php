@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\EventsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,12 +21,7 @@ Route::get('oauth/{driver}', [SocialController::class, 'redirectToProvider'])->n
 Route::get('oauth/{driver}/callback', [SocialController::class, 'handleProviderCallback'])->name('social.callback');
 
 // Home
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-    ]);
-})->name('home');
+Route::get('/', [EventsController::class, 'home'])->name('home');
 
 Route::get('/Profil/user', function () {
     return Inertia::render('Profil'),
