@@ -27,4 +27,8 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/Profil/user', function () {
+    return Inertia::render('Profil'),
+});
+
 require __DIR__.'/auth.php';
