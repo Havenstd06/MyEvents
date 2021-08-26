@@ -33,6 +33,9 @@
     "dependencies": {
         "@headlessui/vue": "^1.4.0",
         "@heroicons/vue": "^1.0.4",
-        "@tailwindcss/typography": "^0.4.1"
+        "@tailwindcss/line-clamp": "^0.2.1",
+        "@tailwindcss/typography": "^0.4.1",
+        "install": "^0.13.0",
+        "npm": "^7.21.0"
     }
 }

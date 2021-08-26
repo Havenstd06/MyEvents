@@ -1,5 +1,5 @@
 <template>
-    <div class="text-blueGray-100">
+    <div class="text-blueGray-100 relative z-50">
         <div class="max-w-6xl px-5 py-6 mx-auto flex items-center justify-between">
             <Link :href="route('home')" class="cursor-pointer group flex items-center pr-2 lg:pr-8 lg:px-6 focus:outline-none">
                 <cover customClass="block h-10 w-auto" fill="group-hover:text-blueGray-400" />
