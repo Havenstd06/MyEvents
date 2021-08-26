@@ -76,9 +76,13 @@
                 <h2 id="product-heading" class="sr-only">Trending Events in Marseille</h2>
 
                 <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                    <div v-for="event in trendingEvents" :key="event.fields.id" class="group relative bg-blueGray-700 border border-gray-200 rounded-lg flex flex-col overflow-hidden">
+                    <div v-for="event in trendingEvents" :key="event.fields.id" class="group relative bg-blueGray-700 rounded-md flex flex-col overflow-hidden">
                         <div class="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
-                            <img :src="event.fields.image" :alt="event.fields.placename" class="w-full h-full object-center object-cover sm:w-full sm:h-full" />
+                            <img :src="event.fields.image"
+                                 @error="$event.target.src='https://limg.app/i/gHlTvX.png'"
+                                 :alt="event.fields.placename"
+                                 class="w-full h-full object-center object-cover sm:w-full sm:h-full"
+                            />
                         </div>
                         <div class="flex-1 p-4 space-y-2 flex flex-col">
                             <h3 class="text-sm font-medium text-gray-100">
