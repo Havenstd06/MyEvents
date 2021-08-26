@@ -23,4 +23,8 @@ Route::get('oauth/{driver}/callback', [SocialController::class, 'handleProviderC
 // Home
 Route::get('/', [EventsController::class, 'home'])->name('home');
 
+Route::get('/Profil/user', function () {
+    return Inertia::render('Profil'),
+});
+
 require __DIR__.'/auth.php';
