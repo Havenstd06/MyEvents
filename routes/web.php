@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,8 +24,9 @@ Route::get('oauth/{driver}/callback', [SocialController::class, 'handleProviderC
 // Home
 Route::get('/', [EventsController::class, 'home'])->name('home');
 
-Route::get('/Profil/user', function () {
-    return Inertia::render('Profil'),
+// Profile
+Route::prefix('/profile')->middleware(['auth'])->group(function () {
+    Route::get('/', [UsersController::class, 'profile'])->name('profile');
 });
 
 require __DIR__.'/auth.php';

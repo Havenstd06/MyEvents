@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Inertia\Inertia;
 
 class UsersController extends Controller
 {
 
-    public function index(Request $request)
+    public function profile()
     {
-        return Inertia::render('/Profil/user', [
-            'sessions' => $this->sessions($request)->all(),
+        $user = auth()->user();
+        $userCreatedAtForHumans = $user->created_at->format('d/m/Y H:m:s');
+
+        return Inertia::render('Users/Profile', [
+            'user'                    => $user,
+            'userCreatedAtForHumans'  => $userCreatedAtForHumans
         ]);
     }
 }
