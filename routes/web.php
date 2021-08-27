@@ -27,6 +27,9 @@ Route::get('/', [EventsController::class, 'home'])->name('home');
 // Profile
 Route::prefix('/profile')->middleware(['auth'])->group(function () {
     Route::get('/', [UsersController::class, 'profile'])->name('profile');
+    Route::post('/edit', [UsersController::class, 'updateUser'])->name('profile.update');
 });
+
+
 
 require __DIR__.'/auth.php';

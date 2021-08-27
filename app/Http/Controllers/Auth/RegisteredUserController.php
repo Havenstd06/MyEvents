@@ -53,4 +53,14 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME)
             ->with('success', 'You have been successfully register.');
     }
+    public function Edit(Request $request)
+    {
+        $user = Auth::user();
+        $user = User::find($user->id);
+
+        $user->name = $request->name ?? $user->name;
+
+
+
+    }
 }

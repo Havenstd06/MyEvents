@@ -35,6 +35,7 @@
         "@heroicons/vue": "^1.0.4",
         "@tailwindcss/line-clamp": "^0.2.1",
         "@tailwindcss/typography": "^0.4.1",
+        "@vue/reactivity": "^3.2.6",
         "install": "^0.13.0",
         "npm": "^7.21.0"
     }
