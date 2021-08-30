@@ -1,8 +1,8 @@
 <template>
     <default>
         <main>
-            <trending-events :trending-events="trendingEvents" />
-
+            <link rel="stylesheet" href="">
+                <trending-events :trending-events="trendingEvents" />
             <perks />
         </main>
     </default>
