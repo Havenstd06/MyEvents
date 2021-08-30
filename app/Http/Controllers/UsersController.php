@@ -29,10 +29,12 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'required|min:1|max:255',
             'email' => 'required|min:1|max:255|email',
+            'description' => 'require|min:20|max:1000|description',
         ]);
 
         $user->name = $request->get('name');
         $user->email = $request->get('email') !== $user->email ? $request->get('email') : $user->email;
+        $user->description = $request->get('description');
 
 //        $v = validator($user->toArray(), [
 //           'name' => 'required|min:1|max:255',

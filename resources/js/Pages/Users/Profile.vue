@@ -28,27 +28,6 @@
                                                 <jet-input-error :message="form.errors.name" class="mt-2" />
                                             </div>
                                         </div>
-
-                                        <div class="sm:col-span-6">
-                                            <label for="photo" class="block text-sm font-medium text-blue-gray-900">
-                                                Photo
-                                            </label>
-                                            <div class="mt-1 flex items-center">
-                                                <img class="inline-block h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80" alt="" />
-                                                <div class="ml-4 flex">
-                                                    <div class="relative bg-white py-2 px-3 border border-blue-gray-300 rounded-md shadow-sm flex items-center cursor-pointer hover:bg-blue-gray-50 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-blue-gray-50 focus-within:ring-blue-500">
-                                                        <label for="user-photo" class="relative text-sm font-medium text-black pointer-events-none">
-                                                            <span>Change</span>
-                                                            <span class="sr-only"> user photo</span>
-                                                        </label>
-                                                        <input id="user-photo" name="user-photo" type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md" />
-                                                    </div>
-                                                    <button type="button" class="ml-3 bg-transparent py-2 px-3 border border-transparent rounded-md text-sm font-medium text-blue-gray-900 hover:text-blue-gray-700 focus:outline-none focus:border-blue-gray-300 focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-gray-50 focus:ring-blue-500">
-                                                        Remove
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <div class="pt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
@@ -75,10 +54,19 @@
                                                 {{ userCreatedAtForHumans }}.
                                             </span>
                                         </p>
+
+                                        <div class="sm:col-span-7 ">
+                                            <label for="description" class="block text-sm font-medium text-blue-gray-900">
+                                                description
+                                            </label>
+                                            <input type="text" name="description" v-model="form.description" id="description" autocomplete="description" class="mt-1 block w-full border-blue-gray-300 rounded-md shadow-sm text-gray-900 sm:text-sm focus:ring-blue-500 focus:border-blue-500" />
+                                            <jet-input-error :message="form.errors.description" class="mt-2" />
+                                        </div>
+
                                     </div>
 
                                     <div class="pt-8 flex justify-end">
-                                        <button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-blue-gray-900 hover:bg-blue-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        <button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-900 hover:bg-blue-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                             Cancel
                                         </button>
                                         <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
