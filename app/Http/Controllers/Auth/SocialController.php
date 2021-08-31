@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Intervention\Image\Facades\Image as InterImage;
 
@@ -55,7 +56,7 @@ class SocialController extends Controller
 
     protected function loginOrCreateAccount($providerUser, $driver)
     {
-        $user = User::where('email', $providerUser->getEmail())->first();
+        $user = User::where('provider_id', $providerUser->getId())->first();
 
         if($user) {
 
@@ -118,11 +119,9 @@ class SocialController extends Controller
     {
         $avatarContents = file_get_contents($avatarUrl);
         $avatarExtension = str_replace('image/', '', $this->getMimeType($avatarContents, 'str'));
-        $avatarName = 'avatars/'.strtolower($user->name.'-'.$user->id).".$avatarExtension";
-        $avatarLocation = storage_path('app/public/avatars/'.strtolower($user->name.'-'.$user->id).".$avatarExtension");
+        $avatarName = 'avatars/'.strtolower(Str::random(6).'-'.$user->id).".$avatarExtension";
 
         Storage::disk('public')->put($avatarName, $avatarContents);
-        InterImage::make($avatarLocation)->resize(150, 150)->save($avatarLocation);
 
         return $avatarName;
     }
