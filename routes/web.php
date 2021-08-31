@@ -25,6 +25,13 @@ Route::get('oauth/{driver}/callback', [SocialController::class, 'handleProviderC
 Route::get('/', [EventsController::class, 'home'])->name('home');
 Route::get('/events/{recordid}', [EventsController::class, 'show'])->name('events.show');
 
+
+
+// Trip
+Route::prefix('/trip')->middleware(['auth'])->group(function () {
+    Route::get('/create', [UsersController::class, 'profile'])->name('profile');
+});
+
 // Profile
 Route::prefix('/profile')->middleware(['auth'])->group(function () {
     Route::get('/', [UsersController::class, 'profile'])->name('profile');
