@@ -51,32 +51,34 @@
 
                 <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
                     <div v-for="event in trendingEvents" :key="event.fields.id" class="group relative bg-blueGray-700 rounded-md flex flex-col overflow-hidden">
-                        <div class="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
-                            <img :src="event.fields.image ?? 'https://limg.app/i/gHlTvX.png'"
-                                 :alt="event.fields.placename"
-                                 class="w-full h-full object-center object-cover sm:w-full sm:h-full"
-                            />
-                        </div>
-                        <div class="flex-1 p-4 space-y-2 flex flex-col">
-                            <h3 class="text-sm font-medium text-gray-100">
-                                <a href="">
-                                    <span aria-hidden="true" class="absolute inset-0" />
-                                    {{ event.fields.placename }}
-                                </a>
-                            </h3>
-                            <p class="text-sm text-gray-300 line-clamp-3"
-                               :title="event.fields.free_text">
-                                {{ event.fields.free_text }}
-                            </p>
-                            <div class="flex-1 flex flex-col justify-end">
-                                <p class="text-sm italic text-gray-300">
-                                    {{ event.fields.address }}
-                                </p>
-                                <p class="text-sm mt-2 font-medium text-gray-300">
-                                    Price: {{ event.fields.pricing_info }}
-                                </p>
+                        <a :href="route('events.show', {recordid: event.recordid})">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
+                                <img :src="event.fields.image ?? 'https://limg.app/i/gHlTvX.png'"
+                                     :alt="event.fields.placename"
+                                     class="w-full h-full object-center object-cover sm:w-full sm:h-full"
+                                />
                             </div>
-                        </div>
+                            <div class="flex-1 p-4 space-y-2 flex flex-col">
+                                <h3 class="text-sm font-medium text-gray-100">
+                                    <a :href="route('events.show', {recordid: event.recordid})">
+                                        <span aria-hidden="true" class="absolute inset-0" />
+                                        {{ event.fields.title }}
+                                    </a>
+                                </h3>
+                                <p class="text-sm text-gray-300 line-clamp-3"
+                                   :title="event.fields.free_text">
+                                    {{ event.fields.free_text }}
+                                </p>
+                                <div class="flex-1 flex flex-col justify-end">
+                                    <p class="text-sm italic text-gray-300">
+                                        {{ event.fields.placename }}, {{ event.fields.address }}
+                                    </p>
+                                    <p class="text-sm mt-2 font-medium text-gray-300">
+                                        Price: {{ event.fields.pricing_info ?? 'No price available' }}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </section>
