@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\TripsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,8 +29,9 @@ Route::get('/events/{recordid}', [EventsController::class, 'show'])->name('event
 
 
 // Trip
-Route::prefix('/trip')->middleware(['auth'])->group(function () {
-    Route::get('/create', [UsersController::class, 'profile'])->name('profile');
+Route::prefix('/trips')->middleware(['auth'])->group(function () {
+    Route::post('/{recordid}/create', [TripsController::class, 'create'])->name('trips.create');
+    Route::get('/{recordid}/join', [TripsController::class, 'create'])->name('trips.join');
 });
 
 // Profile

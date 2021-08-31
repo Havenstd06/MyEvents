@@ -15,12 +15,15 @@ class CreateTripsTable extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->integer('max_person')->default(0);
             $table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+
             $table->string('event_id');
             $table->string('participants')->nullable();
             $table->timestamps();

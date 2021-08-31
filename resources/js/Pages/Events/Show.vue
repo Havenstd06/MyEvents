@@ -34,8 +34,12 @@
                         </div>
 
                         <div class="mt-6 md:w-1/3">
-                            <button type="button" @click="setIsTripOpen(true)" class="inline-flex justify-center items-center w-full px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-100 ring-transparent hover:bg-blueGray-700 hover:text-blueGray-200 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <button type="button" v-if="$page.props.auth.user" @click="setIsTripOpen(true)" class="inline-flex justify-center items-center w-full px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-100 ring-transparent hover:bg-blueGray-700 hover:text-blueGray-200 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Organize a trip
+                            </button>
+
+                            <button type="button" v-else class="inline-flex justify-center items-center w-full px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-100 ring-transparent transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-not-allowed">
+                                You must be authenticated to organize a trip
                             </button>
                         </div>
                     </div>
@@ -68,30 +72,51 @@
                         <h2 class="text-3xl text-center text-gray-50 uppercase tracking-wide mb-3">
                             Organize a trip
                         </h2>
-                            <form>
+                            <form
+                                v-if="! isCreateTripLoading && ! tripJoinLink"
+                                @submit.prevent="createTrip"
+                            >
                                 <div class="space-y-6 sm:space-y-5">
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                                         <label for="name" class="block text-sm font-medium text-gray-100 sm:mt-px sm:pt-2">
                                             Trip name
                                         </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <input type="text" name="name" id="name" autocomplete="given-name" class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md" placeholder="My Awesome Trip" required />
+                                            <input type="text" name="name" id="name" v-model="createTripForm.name" class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md" placeholder="My Awesome Trip" required />
+                                            <jet-input-error :message="createTripForm.errors.name" class="mt-2" />
                                         </div>
                                     </div>
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                                        <label for="name" class="block text-sm font-medium text-gray-100 sm:mt-px sm:pt-2">
+                                        <label for="max_person" class="block text-sm font-medium text-gray-100 sm:mt-px sm:pt-2">
                                             Max trip person
                                         </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <input type="number" name="max-trip-person" id="max-trip-person" class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md" placeholder="10" required/>
+                                            <input type="number" name="max_person" id="max_person" v-model="createTripForm.max_person" class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md" placeholder="10" required />
+                                            <jet-input-error :message="createTripForm.errors.max_person" class="mt-2" />
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mt-5 sm:mt-6">
+                                    <button type="submit" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm">
+                                        Create Trip
+                                    </button>
+                                </div>
                             </form>
-                            <div class="mt-5 sm:mt-6">
-                                <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm" @click="isTripOpen = false">
-                                    Create Trip
+
+                            <div v-if="tripJoinLink">
+                                <h3 class="text-gray-100 mb-3">
+                                    Here is your invitation link, send it to your friends to invite them to your trip!
+                                </h3>
+
+                                <div class="w-full rounded-md break-words text-gray-50 bg-blueGray-800 px-4 py-2" ref="tripJoinLink" v-html="tripJoinLink" />
+
+                                <button type="submit" @click="handleCopy(tripJoinLink)" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-4">
+                                    Copy Link to clipboard
                                 </button>
+                            </div>
+
+                            <div v-if="isCreateTripLoading">
+                                <Loading />
                             </div>
                         </div>
                     </TransitionChild>
@@ -99,6 +124,8 @@
             </Dialog>
         </TransitionRoot>
     </default>
+
+    <notification v-if="notification" :notification="this.notification" />
 </template>
 
 <script>
@@ -106,6 +133,7 @@ import Default from "@/Layouts/Default";
 import Loading from "@/Components/Loading";
 import { ref } from "vue";
 import { CheckIcon } from '@heroicons/vue/outline'
+import JetInputError from '@/Jetstream/InputError'
 import {
     Dialog,
     DialogOverlay,
@@ -113,9 +141,11 @@ import {
     TransitionChild,
     TransitionRoot
 } from '@headlessui/vue'
+import Notification from "@/Components/Partials/Notification";
 
 export default {
     components: {
+        Notification,
         Loading,
         Default,
         Dialog,
@@ -124,10 +154,11 @@ export default {
         TransitionChild,
         TransitionRoot,
         CheckIcon,
+        JetInputError
     },
 
     setup() {
-        let isTripOpen = ref(true); // false
+        let isTripOpen = ref(false);
 
         return {
             isTripOpen,
@@ -141,7 +172,17 @@ export default {
         return {
             event: [],
             dataReady: false,
-            recordId: this.$page.props.recordid
+            recordId: this.$page.props.recordid,
+            notification: null,
+
+            isCreateTripLoading: false,
+            tripJoinLink: null,
+
+            createTripForm: this.$inertia.form({
+                _method: 'POST',
+                name: null,
+                max_person: null
+            }),
         }
     },
 
@@ -157,6 +198,26 @@ export default {
                     this.event = response.data.records[0]
                     this.dataReady = true
                 })
+        },
+
+        createTrip: function () {
+            this.isCreateTripLoading = true
+
+            this.createTripForm.post(route('trips.create', {'recordid': this.recordId}), {
+                preserveScroll: true,
+                onSuccess: (res) => {
+                    this.isCreateTripLoading = false
+                    this.tripJoinLink = res.props.data.tripJoinLink
+                },
+            });
+        },
+
+        handleCopy: function (text) {
+            navigator.clipboard.writeText(text)
+            
+            this.notification = {
+                'success': 'Copied to clipboard'
+            }
         }
     }
 }
