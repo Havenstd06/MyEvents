@@ -31,13 +31,12 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
-        "@headlessui/vue": "^1.4.0",
+        "@headlessui/vue": "^1.4.1",
         "@heroicons/vue": "^1.0.4",
         "@tailwindcss/line-clamp": "^0.2.1",
         "@tailwindcss/typography": "^0.4.1",
         "@vue/reactivity": "^3.2.6",
         "install": "^0.13.0",
-        "npm": "^7.21.0",
-        "skeleton-loader-vue": "^1.0.10"
+        "npm": "^7.21.0"
     }
 }
