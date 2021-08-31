@@ -23,11 +23,6 @@
                                     </Link>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
-                                    <Link :href="route('home')"  :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
-                                        Settings
-                                    </Link>
-                                </MenuItem>
-                                <MenuItem v-slot="{ active }">
                                     <form method="POST" @submit.prevent="logout">
                                         <button type="submit" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
                                             Sign out

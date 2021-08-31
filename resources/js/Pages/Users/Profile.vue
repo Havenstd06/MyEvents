@@ -44,8 +44,16 @@
                                             <jet-input-error :message="form.errors.email" class="mt-2" />
                                         </div>
 
+                                        <div class="sm:col-span-7 ">
+                                            <label for="description" class="block text-sm font-medium text-blue-gray-900">
+                                                Description
+                                            </label>
+                                            <textarea cols="10" name="description" v-model="form.description" id="description" autocomplete="description" class="mt-1 h-36 block w-full border-blue-gray-300 rounded-md shadow-sm text-gray-900 sm:text-sm focus:ring-blue-500 focus:border-blue-500" />
+                                            <jet-input-error :message="form.errors.description" class="mt-2" />
+                                        </div>
+
                                         <p class="text-sm text-blue-gray-500 sm:col-span-6 flex flex-col space-y-1">
-                                            <span>
+                                            <span v-if="user.provider">
                                                 This account was linked with
                                                 {{ user.provider }}.
                                             </span>
@@ -54,14 +62,6 @@
                                                 {{ userCreatedAtForHumans }}.
                                             </span>
                                         </p>
-
-                                        <div class="sm:col-span-7 ">
-                                            <label for="description" class="block text-sm font-medium text-blue-gray-900">
-                                                description
-                                            </label>
-                                            <input type="text" name="description" v-model="form.description" id="description" autocomplete="description" class="mt-1 block w-full border-blue-gray-300 rounded-md shadow-sm text-gray-900 sm:text-sm focus:ring-blue-500 focus:border-blue-500" />
-                                            <jet-input-error :message="form.errors.description" class="mt-2" />
-                                        </div>
 
                                     </div>
 
