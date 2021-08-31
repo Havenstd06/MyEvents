@@ -104,6 +104,7 @@ export default {
                 _method: 'POST',
                 name: this.user.name,
                 email: this.user.email,
+                description: this.user.description,
             }),
         }
     },
