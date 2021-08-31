@@ -1,9 +1,7 @@
 <template>
     <default>
         <main>
-            <link rel="stylesheet" href="">
-                <trending-events :trending-events="trendingEvents" />
-            <perks />
+            <trending-events />
         </main>
     </default>
 </template>
@@ -24,10 +22,6 @@ export default {
         Perks,
         Head,
         Default
-    },
-
-    props: {
-        trendingEvents: Array
     },
 
     setup() {
