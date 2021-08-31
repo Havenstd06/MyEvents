@@ -2,10 +2,10 @@
     <main class="max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
         <div class="border-b border-gray-200 pt-24 pb-10">
             <h1 class="text-4xl font-extrabold tracking-tight text-gray-100">
-                Trending Events
+                Trending Events in {{ this.city }}
             </h1>
             <p class="mt-4 text-base text-gray-300">
-                Discover the most popular events near Marseille!
+                Discover the most popular events near {{ this.city }}!
             </p>
         </div>
 
@@ -19,38 +19,71 @@
                 </button>
 
                 <div class="hidden lg:block">
-                    <form class="divide-y divide-gray-200 space-y-10">
-                        <div v-for="(section, sectionIdx) in filters" :key="section.name" :class="sectionIdx === 0 ? null : 'pt-10'">
-                            <fieldset>
-                                <legend class="block text-sm font-medium text-gray-100">
-                                    {{ section.name }}
-                                </legend>
-                                <div class="pt-6 space-y-3">
-                                    <div v-for="(option, optionIdx) in section.options" :key="option.value" class="flex items-center">
-                                        <input :id="`${section.id}-${optionIdx}`"
-                                               :name="`${section.id}[]`"
-                                               :value="option.value"
-                                               @change="checkboxChange"
-                                               v-on:input="update(section.id + '-' + option.value)"
-                                               type="checkbox"
-                                               class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                        />
-                                        <label :for="`${section.id}-${optionIdx}`" class="ml-3 text-sm text-gray-200">
-                                            {{ option.label }}
-                                        </label>
-                                    </div>
+                    <div class="divide-y divide-gray-200 space-y-10">
+                        <fieldset role="group">
+                            <legend class="block text-sm font-medium text-gray-100">
+                                City
+                            </legend>
+                            <div class="pt-6 space-y-3">
+                                <div class="flex items-center">
+                                    <input id="place-1"
+                                           name="place"
+                                           @change="cityChange('Marseille')"
+                                           type="radio"
+                                           class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                           checked
+                                    />
+                                    <label for="place-1" class="ml-3 text-sm text-gray-200">
+                                        Marseille
+                                    </label>
                                 </div>
-                            </fieldset>
-                        </div>
-                    </form>
+
+                                <div class="flex items-center">
+                                    <input id="place-2"
+                                           name="place"
+                                           @change="cityChange('Paris')"
+                                           type="radio"
+                                           class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                    <label for="place-2" class="ml-3 text-sm text-gray-200">
+                                        Paris
+                                    </label>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <input id="place-3"
+                                           name="place"
+                                           @change="cityChange('Nice')"
+                                           type="radio"
+                                           class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                    <label for="place-3" class="ml-3 text-sm text-gray-200">
+                                        Nice
+                                    </label>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <input id="place-4"
+                                           name="place"
+                                           @change="cityChange('Lyon')"
+                                           type="radio"
+                                           class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                    <label for="place-4" class="ml-3 text-sm text-gray-200">
+                                        Lyon
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
                 </div>
             </aside>
 
             <section aria-labelledby="product-heading" class="mt-6 lg:mt-0 lg:col-span-2 xl:col-span-3">
                 <h2 id="product-heading" class="sr-only">Trending Events in Marseille</h2>
 
-                <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                    <div v-for="event in trendingEvents" :key="event.fields.id" class="group relative bg-blueGray-700 rounded-md flex flex-col overflow-hidden">
+                <div v-if="dataReady" class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
+                    <div v-for="event in events" :key="event.fields.id" class="group relative bg-blueGray-700 rounded-md flex flex-col overflow-hidden">
                         <a :href="route('events.show', {recordid: event.recordid})">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
                                 <img :src="event.fields.image ?? 'https://limg.app/i/gHlTvX.png'"
@@ -81,12 +114,16 @@
                         </a>
                     </div>
                 </div>
+                <div v-else class="w-full mt-20 flex justify-center items-center">
+                    <Loading />
+                </div>
             </section>
         </div>
     </main>
 </template>
 
 <script>
+import Loading from "@/Components/Loading";
 const filters = [
     {
         id: 'category',
@@ -113,19 +150,38 @@ const filters = [
 
 export default {
     name: 'trendingEvents',
-
-    props: {
-        trendingEvents: Array
-    },
-
+    components: {Loading},
     setup() {
         return { filters }
     },
 
+    data () {
+        return {
+            events: [],
+            dataReady: false,
+            city: 'Marseille'
+        }
+    },
+
+    mounted () {
+        this.getEvents()
+    },
+
     methods: {
-        checkboxChange: function(text) {
-             // this.$emit("change", text);
-            console.log(text)
+        cityChange: function(city) {
+            this.city = city
+            this.dataReady = false
+
+            this.getEvents()
+        },
+
+        getEvents: function () {
+            axios
+                .get(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-cibul&q=&lang=fr&rows=18&facet=city&refine.city=${this.city}&timezone=Europe%2FParis`)
+                .then(response => {
+                    this.dataReady = true
+                    this.events = response.data.records
+                })
         }
     }
 }
