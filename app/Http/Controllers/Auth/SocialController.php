@@ -56,7 +56,7 @@ class SocialController extends Controller
 
     protected function loginOrCreateAccount($providerUser, $driver)
     {
-        $user = User::where('provider_id', $providerUser->getId())->first();
+        $user = User::where('email', $providerUser->getEmail())->first();
 
         if($user) {
 
