@@ -1,6 +1,6 @@
 <template>
     <h2 class="text-2xl text-gray-50 w-full border-b border-gray-50 pb-3 mb-6">
-        My Trips On This Event
+        My organized trips on this event
     </h2>
 
     <div v-if="this.userTrips.length > 0" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
@@ -36,11 +36,19 @@
                                                 Here is your invitation link, send it to your friends to invite them to your trip!
                                             </h4>
 
-                                            <div class="w-full rounded-md break-words text-gray-50 bg-blueGray-800 px-4 py-2"
-                                                 v-html="route('trips.join', {
-                                            'trip_id': trip.id,
-                                            'recordid': trip.event_id
-                                        })" />
+                                            <div class="w-full rounded-md break-words bg-blueGray-800 px-4 py-2">
+                                                <a class="text-gray-100 hover:text-gray-200 focus:outline-none transition duration-200 ease-in-out"
+                                                   :href="route('trips.join.show', {
+                                                        'trip_id': trip.id,
+                                                        'recordid': trip.event_id
+                                                    })"
+                                                   v-html="route('trips.join.show', {
+                                                        'trip_id': trip.id,
+                                                        'recordid': trip.event_id
+                                                    })"
+                                                >
+                                                </a>
+                                            </div>
                                         </div>
 
                                         <div class="pt-3">
@@ -48,8 +56,8 @@
                                                 Here you have all the users registered on your trip.
                                             </h4>
 
-                                            <div v-if="trip.participant" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
-                                                <div v-for="participant in trip.participant" class="bg-blueGray-700 border-blueGray-600 text-gray-50 | py-2 px-4 text-center rounded-lg border-2 | flex justify-around cursor-pointer | hover:bg-blueGray-800 | transition-colors duration-500">
+                                            <div v-if="trip.participants" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
+                                                <div v-for="participant in trip.participants" class="bg-blueGray-700 border-blueGray-600 text-gray-50 | py-2 px-4 text-center rounded-lg border-2 | flex justify-around cursor-pointer | hover:bg-blueGray-800 | transition-colors duration-500">
                                                     <span>
                                                         {{ participant.name }}
                                                     </span>
@@ -119,7 +127,6 @@ export default {
     methods: {
         setSelectedTrip: function (value) {
             this.selectedTrip = value
-
         }
     }
 }

@@ -11,8 +11,17 @@ class Trip extends Model
 
     protected $guarded = [];
 
+    protected $attributes = [
+        'participants' => '{}'
+    ];
+
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function getParticipantsAttribute($value)
+    {
+        return json_decode($value, true);
     }
 }

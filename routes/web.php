@@ -31,7 +31,8 @@ Route::get('/events/{recordid}', [EventsController::class, 'show'])->name('event
 // Trip
 Route::prefix('/trips')->middleware(['auth'])->group(function () {
     Route::post('/{recordid}/create', [TripsController::class, 'create'])->name('trips.create');
-    Route::get('/{trip_id}/{recordid}/join', [TripsController::class, 'create'])->name('trips.join');
+    Route::get('/{trip_id}/{recordid}/join', [TripsController::class, 'showJoin'])->name('trips.join.show');
+    Route::put('/{trip_id}/{recordid}/join', [TripsController::class, 'join'])->name('trips.join');
 });
 
 // Profile

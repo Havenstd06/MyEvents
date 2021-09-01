@@ -26,7 +26,7 @@ class EventsController extends Controller
         $userTrips = [];
 
         if ($user) {
-            $userTrips = Trip::where('user_id', $user->id)->where('event_id', $recordid)->get() ?? [];
+            $userTrips = Trip::where('user_id', $user->id)->where('event_id', $recordid)->get();
         }
 
         return Inertia::render('Events/Show', compact('recordid', 'userTrips'));
