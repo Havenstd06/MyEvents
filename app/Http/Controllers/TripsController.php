@@ -22,11 +22,15 @@ class TripsController extends Controller
         $newTrip->max_person = $request->get('max_person');
         $newTrip->user_id = $user->id;
         $newTrip->event_id = $recordid;
+        $newTrip->participants = "[]";
         $newTrip->save();
 
         return back()->with([
             'data' => [
-                'tripJoinLink' => route('trips.join', ['recordid' => $newTrip->event_id])
+                'tripJoinLink' => route('trips.join', [
+                    'trip_id' => $newTrip->id,
+                    'recordid' => $newTrip->event_id
+                ])
             ],
             'success' => "$newTrip->name as been successfully created! Share the link to invite friends."
         ]);

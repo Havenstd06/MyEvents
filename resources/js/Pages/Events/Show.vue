@@ -34,13 +34,17 @@
                         </div>
 
                         <div class="mt-6 md:w-1/3">
-                            <button type="button" v-if="$page.props.auth.user" @click="setIsTripOpen(true)" class="inline-flex justify-center items-center w-full px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-100 ring-transparent hover:bg-blueGray-700 hover:text-blueGray-200 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Organize a trip
-                            </button>
+                            <div v-if="$page.props.auth.user">
+                                <button type="button" @click="setIsTripOpen(true)" class="inline-flex justify-center items-center w-full px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-100 ring-transparent hover:bg-blueGray-700 hover:text-blueGray-200 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    Organize a trip
+                                </button>
+                            </div>
 
-                            <button type="button" v-else class="inline-flex justify-center items-center w-full px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-100 ring-transparent transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-not-allowed">
-                                You must be authenticated to organize a trip
-                            </button>
+                            <div v-else>
+                                <button type="button" class="inline-flex justify-center items-center w-full px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-100 ring-transparent transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-not-allowed">
+                                    You must be authenticated to organize a trip
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -51,6 +55,10 @@
                     </h3>
 
                     <div class="text-base text-gray-300 space-y-6" v-html="event.fields.free_text" />
+                </div>
+
+                <div v-if="$page.props.auth.user" class="mt-6">
+                    <my-trips :user-trips="this.$page.props.userTrips"/>
                 </div>
             </div>
             <div v-else class="w-full mt-32 flex items-center justify-center">
@@ -142,9 +150,11 @@ import {
     TransitionRoot
 } from '@headlessui/vue'
 import Notification from "@/Components/Partials/Notification";
+import MyTrips from "@/Pages/Events/Partials/MyTrips";
 
 export default {
     components: {
+        MyTrips,
         Notification,
         Loading,
         Default,
@@ -214,7 +224,7 @@ export default {
 
         handleCopy: function (text) {
             navigator.clipboard.writeText(text)
-            
+
             this.notification = {
                 'success': 'Copied to clipboard'
             }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
@@ -21,6 +22,13 @@ class EventsController extends Controller
      */
     public function show(Request $request, $recordid)
     {
-        return Inertia::render('Events/Show', compact('recordid'));
+        $user = auth()->user();
+        $userTrips = [];
+
+        if ($user) {
+            $userTrips = Trip::where('user_id', $user->id)->where('event_id', $recordid)->get() ?? [];
+        }
+
+        return Inertia::render('Events/Show', compact('recordid', 'userTrips'));
     }
 }
