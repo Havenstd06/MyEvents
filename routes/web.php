@@ -36,9 +36,14 @@ Route::prefix('/trips')->middleware(['auth'])->group(function () {
 });
 
 // Profile
-Route::prefix('/profile')->middleware(['auth'])->group(function () {
-    Route::get('/', [UsersController::class, 'profile'])->name('profile');
-    Route::post('/edit', [UsersController::class, 'updateUser'])->name('profile.update');
+Route::prefix('/profile')->group(function () {
+    Route::get('/{user}', [UsersController::class, 'profile'])->name('profile.show');
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/{user}/edit', [UsersController::class, 'edit'])->name('profile.edit');
+        Route::post('/{user}/edit', [UsersController::class, 'update'])->name('profile.update');
+    });
+
 });
 
 

@@ -58,9 +58,9 @@
 
                                             <div v-if="trip.participants" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
                                                 <div v-for="participant in trip.participants" class="bg-blueGray-700 border-blueGray-600 text-gray-50 | py-2 px-4 text-center rounded-lg border-2 | flex justify-around cursor-pointer | hover:bg-blueGray-800 | transition-colors duration-500">
-                                                    <span>
+                                                    <a :href="route('profile.show', {'user': participant.id})">
                                                         {{ participant.name }}
-                                                    </span>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div v-else class="px-2 text-md text-gray-300">
@@ -79,7 +79,7 @@
     </div>
     <div v-else>
         <h2 class="text-lg text-gray-50">
-            No Trip
+            No Organized Trip
         </h2>
     </div>
 </template>
