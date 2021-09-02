@@ -49,6 +49,10 @@
                                                 >
                                                 </a>
                                             </div>
+
+                                            <button type="submit" @click="handleCopy(tripJoinLink)" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-4">
+                                                Copy Link to clipboard
+                                            </button>
                                         </div>
 
                                         <div class="pt-3">
@@ -82,6 +86,8 @@
             No Organized Trip
         </h2>
     </div>
+
+    <notification v-if="notification" :notification="this.notification" />
 </template>
 
 <script>
@@ -94,10 +100,12 @@ import {
 } from '@headlessui/vue'
 import Loading from "@/Components/Loading";
 import {ref} from "vue";
+import Notification from "@/Components/Partials/Notification";
 export default {
     name: "MyTrips",
 
     components: {
+        Notification,
         Loading,
         Dialog,
         DialogOverlay,
@@ -120,13 +128,22 @@ export default {
             },
 
             isTripLoading: false,
-            selectedTrip: null
+            selectedTrip: null,
+            notification: null,
         }
     },
 
     methods: {
         setSelectedTrip: function (value) {
             this.selectedTrip = value
+        },
+
+        handleCopy: function (text) {
+            navigator.clipboard.writeText(text)
+
+            this.notification = {
+                'success': 'Copied to clipboard!'
+            }
         }
     }
 }

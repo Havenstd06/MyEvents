@@ -116,7 +116,13 @@
                                     Here is your invitation link, send it to your friends to invite them to your trip!
                                 </h3>
 
-                                <div class="w-full rounded-md break-words text-gray-50 bg-blueGray-800 px-4 py-2" ref="tripJoinLink" v-html="tripJoinLink" />
+                                <div class="w-full rounded-md break-words bg-blueGray-800 px-4 py-2">
+                                    <a class="text-gray-100 hover:text-gray-200 focus:outline-none transition duration-200 ease-in-out"
+                                       :href="tripJoinLink"
+                                       v-html="tripJoinLink"
+                                    >
+                                    </a>
+                                </div>
 
                                 <button type="submit" @click="handleCopy(tripJoinLink)" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-4">
                                     Copy Link to clipboard
@@ -226,7 +232,7 @@ export default {
             navigator.clipboard.writeText(text)
 
             this.notification = {
-                'success': 'Copied to clipboard'
+                'success': 'Copied to clipboard!'
             }
         }
     }
