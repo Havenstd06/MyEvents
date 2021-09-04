@@ -15,6 +15,15 @@ class Trip extends Model
         'participants' => '{}'
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'event_data' => 'array',
+    ];
+
     protected $with = ['user'];
 
     public function user()
