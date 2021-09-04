@@ -17,6 +17,12 @@ class TripsController extends Controller
             'is_public'     => 'boolean',
         ]);
 
+        $event_data = [
+            'name' => $request->get('event_name'),
+            'image' => $request->get('event_image') ?? 'https://limg.app/i/gHlTvX.png',
+            'date' => $request->get('event_date'),
+        ];
+
         $user = auth()->user();
 
         $newTrip = new Trip();
@@ -25,6 +31,7 @@ class TripsController extends Controller
         $newTrip->is_public = $request->has('is_public');
         $newTrip->user_id = $user->id;
         $newTrip->event_id = $recordid;
+        $newTrip->event_data = json_encode($event_data);
         $newTrip->participants = json_encode([$user->toArray()]);
         $newTrip->save();
 

@@ -247,7 +247,7 @@ export default {
                 _method: 'POST',
                 name: null,
                 max_person: null,
-                is_public: false
+                is_public: false,
             }),
         }
     },
@@ -269,7 +269,13 @@ export default {
         createTrip: function () {
             this.isCreateTripLoading = true
 
-            this.createTripForm.post(route('trips.create', {'recordid': this.recordId}), {
+            this.createTripForm.transform((data) => ({
+                ...data,
+                'event_name': this.event.fields.title,
+                'event_image': this.event.fields.image,
+                'event_date': this.event.fields.date_start + ' to ' + this.event.fields.date_end,
+            }))
+                .post(route('trips.create', {'recordid': this.recordId}), {
                 preserveScroll: true,
                 onSuccess: (res) => {
                     this.isCreateTripLoading = false
