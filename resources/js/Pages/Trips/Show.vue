@@ -17,7 +17,9 @@
                 <!-- Event Info -->
                 <div class="w-full">
                     <div class="bg-blueGray-700 p-3 border-t-4 border-blueGray-400">
-                        <Map />
+                        <Map
+                            :event="event"
+                        />
                     </div>
                 </div>
                 <!-- End of Event Info -->
