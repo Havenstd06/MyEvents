@@ -15,15 +15,6 @@ class Trip extends Model
         'participants' => '{}'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'event_data' => 'array',
-    ];
-
     protected $with = ['user'];
 
     public function user()
@@ -32,6 +23,11 @@ class Trip extends Model
     }
 
     public function getParticipantsAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
+    public function getEventDataAttribute($value)
     {
         return json_decode($value, true);
     }
