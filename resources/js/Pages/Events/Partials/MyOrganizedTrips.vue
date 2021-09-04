@@ -55,6 +55,12 @@
                                             </button>
                                         </div>
 
+                                        <div class="border-b border-gray-50 pb-6 pt-2">
+                                            <a :href="route('trips.show', {'trip_id': trip.id})" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm">
+                                                Visit my Trip Page
+                                            </a>
+                                        </div>
+
                                         <div class="pt-3">
                                             <h4 class="px-2 text-gray-100 mb-3">
                                                 Here you have all the users registered on your trip.

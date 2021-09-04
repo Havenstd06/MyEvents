@@ -41,7 +41,6 @@ class HandleInertiaRequests extends Middleware
                 'name' => config('app.name')
             ],
             'data' => $request->session()->get('data'),
-
             'notification' => function () use ($request) {
                 return [
                     'success' => $request->session()->get('success'),
