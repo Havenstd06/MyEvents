@@ -13,7 +13,9 @@ class EventsController extends Controller
 
     public function home()
     {
-        return Inertia::render('Home');
+        $trips = Trip::where('is_public', 1)->get();
+
+        return Inertia::render('Home', compact('trips'));
     }
 
     /**
