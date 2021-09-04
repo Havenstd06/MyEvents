@@ -20,10 +20,10 @@ module.exports = {
                 ...defaultColors,
             },
             height: {
-                50: '12.3rem',
-                76: '19.3rem',
-                84: '21.3rem',
-                106: '28.3rem'
+                50: '13.6rem',
+                76: '20.6rem',
+                84: '22.6rem',
+                106: '29.6rem'
             }
         },
     },
