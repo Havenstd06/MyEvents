@@ -15,66 +15,86 @@
 
                 <button type="button" class="inline-flex items-center lg:hidden" @click="mobileFiltersOpen = true">
                     <span class="text-sm font-medium text-gray-700">Filters</span>
-                    <PlusSmIcon class="flex-shrink-0 ml-1 h-5 w-5 text-gray-400" aria-hidden="true" />
                 </button>
 
                 <div class="hidden lg:block">
                     <div class="divide-y divide-gray-200 space-y-10">
-                        <fieldset role="group">
-                            <legend class="block text-sm font-medium text-gray-100">
-                                City
-                            </legend>
-                            <div class="pt-6 space-y-3">
-                                <div class="flex items-center">
-                                    <input id="place-1"
-                                           name="place"
-                                           @change="cityChange('Marseille')"
-                                           type="radio"
-                                           class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                           checked
-                                    />
-                                    <label for="place-1" class="ml-3 text-sm text-gray-200">
-                                        Marseille
-                                    </label>
-                                </div>
+                        <div>
+                            <fieldset role="group">
+                                <legend class="block font-medium text-gray-100">
+                                    City
+                                </legend>
+                                <div class="pt-3 space-y-3">
+                                    <div v-for="city in cities"
+                                         class="flex items-center">
+                                        <input :id="city.value"
+                                               name="city"
+                                               @change="cityChange(city.label)"
+                                               type="radio"
+                                               class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                               :checked="city.checked"
+                                        />
+                                        <label :for="city.value"
+                                               class="ml-3 text-sm text-gray-200"
+                                               v-html="city.label"
+                                        />
+                                    </div>
 
-                                <div class="flex items-center">
-                                    <input id="place-2"
-                                           name="place"
-                                           @change="cityChange('Paris')"
-                                           type="radio"
-                                           class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label for="place-2" class="ml-3 text-sm text-gray-200">
-                                        Paris
-                                    </label>
+                                    <div>
+                                        <input type="text"
+                                               name="custom_city"
+                                               :value="city"
+                                               @change="e => this.cityChange(e.target.value)"
+                                               class="shadow-sm bg-blueGray-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                    </div>
                                 </div>
+                            </fieldset>
+                        </div>
 
-                                <div class="flex items-center">
-                                    <input id="place-3"
-                                           name="place"
-                                           @change="cityChange('Nice')"
-                                           type="radio"
-                                           class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label for="place-3" class="ml-3 text-sm text-gray-200">
-                                        Nice
-                                    </label>
-                                </div>
+                        <div class="pt-10">
+                            <fieldset role="group">
+                                <legend class="block font-medium text-gray-100">
+                                    Categories
+                                </legend>
+                                <div class="pt-3 space-y-3">
+                                    <div v-for="cat in categories"
+                                         class="flex items-center">
+                                        <input :id="cat.value"
+                                               name="category"
+                                               @change="categoryChange(cat.label)"
+                                               type="radio"
+                                               class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                               :checked="category === cat.label"
+                                        />
+                                        <div class="flex items-center justify-between w-full">
+                                            <label :for="cat.value"
+                                                   class="ml-3 text-sm text-gray-200"
+                                                   v-html="cat.label"
+                                            />
 
-                                <div class="flex items-center">
-                                    <input id="place-4"
-                                           name="place"
-                                           @change="cityChange('Lyon')"
-                                           type="radio"
-                                           class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label for="place-4" class="ml-3 text-sm text-gray-200">
-                                        Lyon
-                                    </label>
+                                            <div v-if="category === cat.label">
+                                                <button type="button"
+                                                        @click="categoryChange(null)"
+                                                        class="text-sm text-red-600">
+                                                    <TrashIcon class="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+                                        <input type="text"
+                                               name="custom_category"
+                                               :value="category"
+                                               @change="e => this.categoryChange(e.target.value)"
+                                               class="shadow-sm bg-blueGray-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        </fieldset>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -123,43 +143,48 @@
 </template>
 
 <script>
+import { TrashIcon } from '@heroicons/vue/outline'
 import Loading from "@/Components/Loading";
-const filters = [
-    {
-        id: 'category',
-        name: 'Category',
-        options: [
-            { value: 'concert', label: 'Concert' },
-            { value: 'spectacle', label: 'Spectacle' },
-            { value: 'manifestation', label: 'Manifestation' },
-            { value: 'competition', label: 'Competition' },
-            { value: 'art', label: 'Art' },
-            { value: 'sport', label: 'Sport' },
-        ],
-    },
-    {
-        id: 'place',
-        name: 'Places',
-        options: [
-            { value: 'marseille', label: 'Marseille' },
-            { value: 'paris', label: 'Paris' },
-            { value: 'lyon', label: 'Lyon' },
-        ],
-    },
-]
+import Input from "@/Jetstream/Input";
+const cities =
+    [
+        { value: 'marseille', label: 'Marseille', checked: true },
+        { value: 'paris', label: 'Paris', checked: false  },
+        { value: 'nice', label: 'Nice', checked: false  },
+        { value: 'lyon', label: 'Lyon', checked: false  },
+    ]
+
+const categories =
+    [
+        { value: 'concert', label: 'Concert' },
+        { value: 'spectacle', label: 'Spectacle' },
+        { value: 'manifestation', label: 'Manifestation' },
+        { value: 'competition', label: 'Competition' },
+        { value: 'art', label: 'Art' },
+        { value: 'sport', label: 'Sport' },
+    ]
 
 export default {
     name: 'trendingEvents',
-    components: {Loading},
+    components: {
+        Input,
+        Loading,
+        TrashIcon
+    },
+
     setup() {
-        return { filters }
+        return {
+            cities,
+            categories
+        }
     },
 
     data () {
         return {
             events: [],
             dataReady: false,
-            city: 'Marseille'
+            city: 'Marseille',
+            category: null
         }
     },
 
@@ -175,9 +200,16 @@ export default {
             this.getEvents()
         },
 
+        categoryChange: function(category) {
+            this.category = category
+            this.dataReady = false
+
+            this.getEvents()
+        },
+
         getEvents: function () {
             axios
-                .get(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-cibul&q=&lang=fr&rows=18&facet=city&refine.city=${this.city}&timezone=Europe%2FParis`)
+                .get(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-cibul&q=&lang=fr&rows=18&facet=city&refine.city=${this.city}${this.category !== null ? `&refine.tags=${this.category}` : ''}&timezone=Europe%2FParis`)
                 .then(response => {
                     this.dataReady = true
                     this.events = response.data.records
