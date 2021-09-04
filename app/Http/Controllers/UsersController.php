@@ -23,13 +23,12 @@ class UsersController extends Controller
 
             foreach ($allTrips as $trip) {
                 foreach ($trip->participants as $participant) {
-                    if ($participant['id'] === $user->id) {
+                    if ($participant['id'] === $user->id && $user->id !== $trip->user->id) {
                         $userJoinedTrips = array_merge($userJoinedTrips, [$trip->toArray()]);
                     }
                 }
             }
         }
-
 
         return Inertia::render('Users/Profile', [
             'user' => $user,
