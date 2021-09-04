@@ -2,9 +2,7 @@
     <div>
         <slot></slot>
 
-        <div v-if="this.$page.props.notification.success || this.$page.props.notification.error || this.$page.props.notification.warning">
-            <notification :notification="this.$page.props.notification" />
-        </div>
+        <notification />
     </div>
 </template>
 
@@ -16,6 +14,6 @@
 
         components: {
             Notification
-        },
+        }
     }
 </script>
