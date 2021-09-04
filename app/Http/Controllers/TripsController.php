@@ -183,7 +183,7 @@ class TripsController extends Controller
         if ($userId === $trip->user->id) {
             return redirect()
                 ->route('trips.show', ['trip_id' => $trip->id])
-                ->with('error', 'You can\'t leave your trip, please delete it!');
+                ->with('error', 'You can\'t leave your trip!');
         }
 
         $newParticipants = $trip->participants;
@@ -200,6 +200,40 @@ class TripsController extends Controller
         return redirect()
             ->back()
             ->with('success', "You have successfully remove $removedUser->name from your trip!");
+    }
+
+    public function leaveUser(Request $request, $tripId, int $userId)
+    {
+        $user = auth()->user();
+        $trip = Trip::where('id', $tripId)->firstOrFail();
+        $removedUser = User::where('id', $userId)->firstOrFail();
+
+        if ($user->id !== $removedUser->id) {
+            return redirect()
+                ->route('trips.show', ['trip_id' => $trip->id])
+                ->with('error', 'You cant remove other participants!');
+        }
+
+        if ($userId === $trip->user->id) {
+            return redirect()
+                ->route('trips.show', ['trip_id' => $trip->id])
+                ->with('error', 'You can\'t leave your trip!');
+        }
+
+        $newParticipants = $trip->participants;
+
+        foreach ($newParticipants as $key => $item){
+            if ($item['id'] === $userId) {
+                unset($newParticipants[$key]);
+            }
+        }
+
+        $trip->participants = $newParticipants;
+        $trip->save();
+
+        return redirect()
+            ->route('home')
+            ->with('success', "You have successfully leave this trip!");
     }
 
     public function delete(Request $request, $tripId)

@@ -1,8 +1,20 @@
 <template>
     <div class="w-full md:flex flex-col justify-center pl-1 pb-2.5">
-        <h2 class="text-lg uppercase text-gray-200 tracking-wide">
-            Trip & Event info
-        </h2>
+        <div class="flex items-center justify-between">
+            <h2 class="text-lg uppercase text-gray-200 tracking-wide">
+                Trip & Event info
+            </h2>
+            <a v-if="$page.props.auth.user.id !== trip.user.id"
+                onclick="return confirm('Are you sure you want to leave this trip?')"
+               :href="route('trips.leave.user', {
+                   'trip_id': trip.id,
+                   'user_id': $page.props.auth.user.id
+               })"
+               class="flex items-center justify-center bg-red-600 hover:bg-red-500 transition duration-200 ease-in-out rounded-md text-white text-sm px-3 py-1.5 flex-shrink-0"
+            >
+                Leave this trip
+            </a>
+        </div>
     </div>
     <div class="md:flex justify-center md:justify-start items-center md:space-x-4 space-y-4 md:space-y-0 font-semibold text-gray-200 leading-8">
         <div class="bg-blueGray-900 rounded-md p-2 h-48 w-48 bg-center bg-cover"
