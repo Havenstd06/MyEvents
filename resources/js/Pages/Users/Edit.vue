@@ -111,7 +111,9 @@ export default {
 
     methods: {
         updateProfileInformation() {
-            this.form.post(route('profile.update'), {
+            this.form.post(route('profile.update', {
+                'user': this.user.id
+            }), {
                 errorBag: 'updateProfileInformation',
                 preserveScroll: true,
                 onSuccess: () => (console.log("successfully updated")),
