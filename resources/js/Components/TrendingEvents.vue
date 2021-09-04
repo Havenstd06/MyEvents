@@ -221,10 +221,10 @@
                             </div>
                             <div class="flex-1 p-4 space-y-2 flex flex-col">
                                 <h3 class="text-sm font-medium text-gray-100">
-                                    <a :href="route('events.show', {recordid: event.recordid})">
+                                    <Link :href="route('events.show', {recordid: event.recordid})">
                                         <span aria-hidden="true" class="absolute inset-0" />
                                         {{ event.fields.title }}
-                                    </a>
+                                    </Link>
                                 </h3>
                                 <p class="text-sm text-gray-300 line-clamp-3"
                                    :title="event.fields.free_text">
@@ -251,6 +251,7 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/inertia-vue3';
 import { TrashIcon } from '@heroicons/vue/outline'
 import Loading from "@/Components/Loading";
 import Input from "@/Jetstream/Input";
@@ -278,7 +279,8 @@ export default {
     components: {
         Input,
         Loading,
-        TrashIcon
+        TrashIcon,
+        Link
     },
 
     setup() {

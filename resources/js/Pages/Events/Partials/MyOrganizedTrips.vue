@@ -36,7 +36,7 @@
                                             </h4>
 
                                             <div class="w-full rounded-md break-words bg-blueGray-800 px-4 py-2">
-                                                <a class="text-gray-100 hover:text-gray-200 focus:outline-none transition duration-200 ease-in-out"
+                                                <Link class="text-gray-100 hover:text-gray-200 focus:outline-none transition duration-200 ease-in-out"
                                                    :href="route('trips.join.show', {
                                                         'trip_id': trip.id,
                                                         'recordid': trip.event_id
@@ -46,7 +46,7 @@
                                                         'recordid': trip.event_id
                                                     })"
                                                 >
-                                                </a>
+                                                </Link>
                                             </div>
 
                                             <button type="submit" @click="handleCopy(tripJoinLink)" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-4">
@@ -55,9 +55,9 @@
                                         </div>
 
                                         <div class="border-b border-gray-50 pb-6 pt-2">
-                                            <a :href="route('trips.show', {'trip_id': trip.id})" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm">
+                                            <Link :href="route('trips.show', {'trip_id': trip.id})" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm">
                                                 Visit my Trip Page
-                                            </a>
+                                            </Link>
                                         </div>
 
                                         <div class="pt-3">
@@ -67,9 +67,9 @@
 
                                             <div v-if="trip.participants" class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
                                                 <div v-for="participant in trip.participants" class="bg-blueGray-700 border-blueGray-600 text-gray-50 | py-2 px-4 text-center rounded-lg border-2 | flex justify-around cursor-pointer | hover:bg-blueGray-800 | transition-colors duration-500">
-                                                    <a :href="route('profile.show', {'user': participant.id})">
+                                                    <Link :href="route('profile.show', {'user': participant.id})">
                                                         {{ participant.name }}
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div v-else class="px-2 text-md text-gray-300">
@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/inertia-vue3';
 import {
     Dialog,
     DialogOverlay,
@@ -117,6 +118,7 @@ export default {
         DialogTitle,
         TransitionChild,
         TransitionRoot,
+        Link
     },
 
     props: {

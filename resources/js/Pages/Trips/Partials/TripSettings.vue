@@ -42,7 +42,7 @@
                                         </h4>
 
                                         <div class="w-full rounded-md break-words bg-blueGray-800 px-4 py-2">
-                                            <a class="text-gray-100 hover:text-gray-200 focus:outline-none transition duration-200 ease-in-out"
+                                            <Link class="text-gray-100 hover:text-gray-200 focus:outline-none transition duration-200 ease-in-out"
                                                :href="route('trips.join.show', {
                                                         'trip_id': trip.id,
                                                         'recordid': trip.event_id
@@ -52,7 +52,7 @@
                                                         'recordid': trip.event_id
                                                     })"
                                             >
-                                            </a>
+                                            </Link>
                                         </div>
 
                                         <button type="submit" @click="handleCopy(tripJoinLink)" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-4">
@@ -140,7 +140,7 @@
                                             Remove participant from your trip
                                         </h3>
                                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:items-start">
-                                            <a v-for="participant in trip.participants"
+                                            <Link v-for="participant in trip.participants"
                                                onclick="return confirm('Are you sure you want to remove this participant from your trip ?')"
                                                :href="route('trips.remove.user', {
                                                    'trip_id': trip.id,
@@ -156,16 +156,16 @@
                                                 <span v-html="participant.name"
                                                       class="ml-2 text-gray-200 group-hover:text-gray-50 text-sm"
                                                 />
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
 
                                     <div class="pt-2">
-                                        <a onclick="return confirm('Are you sure you want to delete this trip')"
+                                        <Link onclick="return confirm('Are you sure you want to delete this trip')"
                                            :href="route('trips.delete', {'trip_id': trip.id})"
                                            class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm">
                                             Delete
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -181,6 +181,7 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/inertia-vue3';
 import {
     Dialog,
     DialogOverlay,
@@ -200,7 +201,8 @@ export default {
         DialogTitle,
         TransitionChild,
         TransitionRoot,
-        JetInputError
+        JetInputError,
+        Link
     },
 
     props: {

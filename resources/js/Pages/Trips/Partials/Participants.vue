@@ -20,7 +20,7 @@
                 <img class="h-10 w-10 rounded-full" :src="'/' + participant.avatar" alt="" />
             </div>
             <div class="flex-1 text-center min-w-0">
-                <a :href="route('profile.show', {'user': participant.id})"
+                <Link :href="route('profile.show', {'user': participant.id})"
                    class="focus:outline-none"
                 >
                     <span class="absolute inset-0" aria-hidden="true" />
@@ -35,7 +35,7 @@
                             Participant
                         </span>
                     </p>
-                </a>
+                </Link>
             </div>
         </div>
     </div>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/inertia-vue3';
 import Notification from "@/Components/Partials/Notification";
 import TripSettings from "@/Pages/Trips/Partials/TripSettings";
 export default {
@@ -51,7 +52,8 @@ export default {
 
     components: {
         TripSettings,
-        Notification
+        Notification,
+        Link
     },
 
     props: {

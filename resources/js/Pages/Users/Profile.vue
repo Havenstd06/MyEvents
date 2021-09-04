@@ -27,7 +27,7 @@
                         <div v-if="userOrganizedTrips.length > 0"
                              class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3"
                         >
-                            <a v-for="trip in userOrganizedTrips"
+                            <Link v-for="trip in userOrganizedTrips"
                                :key="trip.id"
                                :href="route('trips.show', {'trip_id': trip.id})"
                                class="bg-blueGray-800 hover:bg-blueGray-900 transition duration-200 ease-in-out px-2 py-1.5 rounded-md group">
@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="text-xs text-blueGray-300 group-hover:text-gray-400" v-html="(trip.participants.length ?? 'x') + ' participants'" />
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                         <div v-else>
                             <h2 class="text-lg text-gray-50">
@@ -60,7 +60,7 @@
                         <div v-if="userJoinedTrips.length > 0"
                              class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3"
                         >
-                            <a v-for="trip in userJoinedTrips"
+                            <Link v-for="trip in userJoinedTrips"
                                :key="trip.id"
                                :href="route('trips.show', {'trip_id': trip.id})"
                                class="bg-blueGray-800 hover:bg-blueGray-900 transition duration-200 ease-in-out px-2 py-1.5 rounded-md">
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="text-xs text-blueGray-300 group-hover:text-gray-400" v-html="(trip.participants.length ?? 'x') + ' participants'" />
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                         <div v-else>
                             <h2 class="text-lg text-gray-50">
@@ -89,11 +89,13 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/inertia-vue3';
 import Default from "@/Layouts/Default";
 
 export default {
     components: {
         Default,
+        Link
     },
 
     props: {
