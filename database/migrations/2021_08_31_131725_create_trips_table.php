@@ -26,6 +26,7 @@ class CreateTripsTable extends Migration
                 ->onDelete('cascade');
 
             $table->string('event_id');
+            $table->json('event_data');
             $table->json('participants');
             $table->timestamps();
         });
