@@ -11,8 +11,7 @@
         >
             <div>
 
-                <span class="flex flex-col justify-center text-gray-50 font-semibold"
-                >
+                <span class="flex flex-col justify-center text-gray-50 font-semibold">
                     {{ trip.name }}
                 </span>
 
