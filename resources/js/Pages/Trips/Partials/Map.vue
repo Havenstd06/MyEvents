@@ -1,10 +1,4 @@
 <template>
-    <div class="w-full flex flex-col justify-center pl-1 pb-2.5">
-        <h2 class="text-lg uppercase text-gray-200 tracking-wide">
-            Map
-        </h2>
-    </div>
-
     <GoogleMap
         api-key="AIzaSyAYM1kuVvZl8vVLfAXUzeClpVvR9n5jXFU"
         class="w-full h-64"
