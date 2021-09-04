@@ -24,7 +24,14 @@
                         </tr>
                         </thead>
                         <tbody class="bg-blueGray-700 divide-y divide-gray-500">
-                        <tr v-for="trip in trips" :key="trip.id">
+                        <Link as="tr"
+                              v-for="trip in trips"
+                              :key="trip.id"
+                              :href="route('trips.show', {
+                                  'trip_id': trip.id
+                              })"
+                              class="cursor-pointer hover:bg-blueGray-800 transition duration-200 ease-in-out"
+                        >
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
@@ -56,17 +63,16 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                <a :href="route('trips.join', {
+                                <Link :href="route('trips.join', {
                                     'trip_id': trip.id,
                                     'recordid': trip.event_id
                                 })"
-                                   v-if="$page.props.auth.user.id !== trip.user.id"
-                                   class="text-gray-300 hover:text-gray-50 bg-blueGray-800 hover:bg-blueGray-900 rounded-md px-3 py-2 transition duration-200 ease-in-out"
+                                   class="text-gray-300 hover:text-gray-50 bg-blueGray-900 hover:bg-blueGray-600 rounded-md px-3 py-2 transition duration-200 ease-in-out"
                                 >
                                     Join
-                                </a>
+                                </Link>
                             </td>
-                        </tr>
+                        </Link>
                         </tbody>
                     </table>
                 </div>
@@ -76,24 +82,11 @@
 </template>
 
 <script>
-const people = [
-    {
-        name: 'Jane Cooper',
-        title: 'Regional Paradigm Technician',
-        department: 'Optimization',
-        role: 'Admin',
-        email: 'jane.cooper@example.com',
-        image:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-    // More people...
-]
+import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
-    setup() {
-        return {
-            people,
-        }
+    components: {
+        Link
     },
 
     props: {
