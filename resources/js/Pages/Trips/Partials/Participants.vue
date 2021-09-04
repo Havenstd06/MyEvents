@@ -24,7 +24,7 @@
             </div>
         </div>
         <h2 class="text-lg uppercase text-gray-200 tracking-wide">
-            Participants (<span v-html="participants.length"></span>)
+            Participants (<span v-html="participants.length" />/<span v-html="trip.max_person" />)
         </h2>
     </div>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -44,12 +44,12 @@
                     <p class="text-sm font-medium text-gray-200">
                         {{ participant.name }}
                     </p>
-                    <p class="text-sm text-gray-400 truncate">
+                    <p class="text-sm text-gray-400 truncate uppercase">
                         <span v-if="organizer.id === participant.id" >
-                            HOST
+                            Organizer
                         </span>
                         <span v-else>
-                            PARTICIPANTS
+                            Participant
                         </span>
                     </p>
                 </a>
