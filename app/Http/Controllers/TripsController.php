@@ -125,6 +125,42 @@ class TripsController extends Controller
         ]);
     }
 
+    public function update(Request $request, $tripId)
+    {
+        $request->validate([
+            'name'          => 'required|min:1|max:255',
+            'max_person'    => 'required|min:1|integer',
+            'is_public'     => 'boolean',
+        ]);
+
+        $user = auth()->user();
+        $trip = Trip::where('id', $tripId)->firstOrFail();
+
+        if ($user->id !== $trip->user->id) {
+            return redirect()
+                ->route('trips.show', ['trip_id' => $trip->id])
+                ->with('error', 'You are not the trip owner!');
+        }
+
+        $maxPerson = $request->get('max_person');
+
+        if ($maxPerson < count($trip->participants)) {
+            return redirect()
+                ->back()
+                ->with('error', 'You cannot set a maximum number of participants lower than the current number of participants.');
+        }
+
+        $trip->name = $request->get('name');
+        $trip->max_person = $maxPerson;
+        $trip->is_public = $request->get('is_public');
+
+        $trip->save();
+
+        return redirect()
+            ->back()
+            ->with('success', 'You have successfully updated the trip!');
+    }
+
     public function delete(Request $request, $tripId)
     {
         $user = auth()->user();

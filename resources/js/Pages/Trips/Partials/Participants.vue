@@ -1,28 +1,11 @@
 <template>
     <div class="w-full flex flex-col justify-center pl-1 pb-2.5">
-        <div v-if="organizer.id === $page.props.auth.user.id">
-            <h3 class="text-gray-100 mb-1">
-                Organizer Settings
-            </h3>
-            <div class="flex flex-col space-y-2 mb-3">
-                <button type="submit"
-                        @click="handleCopy(route('trips.join.show', {
-                            'trip_id': trip.id,
-                            'recordid': trip.event_id
-                        }))"
-                        class="w-full text-center uppercase bg-blueGray-800 hover:bg-blueGray-900 transition duration-200 ease-in-out px-1.5 py-1 rounded-md text-gray-200 tracking-wide"
-                >
-                    Copy invite url
-                </button>
+        <TripSettings
+            :organizer="organizer"
+            :event="event"
+            :trip="trip"
+        />
 
-                <a onclick="return confirm('Are you sure you want to delete this trip')"
-                   :href="route('trips.delete', {'trip_id': trip.id})"
-                   class="w-full text-center uppercase bg-blueGray-800 hover:bg-blueGray-900 transition duration-200 ease-in-out px-1.5 py-1 rounded-md text-gray-200 tracking-wide"
-                >
-                    Delete the trip
-                </a>
-            </div>
-        </div>
         <h2 class="text-lg uppercase text-gray-200 tracking-wide">
             Participants (<span v-html="participants.length" />/<span v-html="trip.max_person" />)
         </h2>
@@ -62,10 +45,12 @@
 
 <script>
 import Notification from "@/Components/Partials/Notification";
+import TripSettings from "@/Pages/Trips/Partials/TripSettings";
 export default {
     name: "Participants",
 
     components: {
+        TripSettings,
         Notification
     },
 
