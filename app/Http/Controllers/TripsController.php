@@ -161,6 +161,40 @@ class TripsController extends Controller
             ->with('success', 'You have successfully updated the trip!');
     }
 
+    public function removeUser(Request $request, $tripId, int $userId)
+    {
+        $user = auth()->user();
+        $trip = Trip::where('id', $tripId)->firstOrFail();
+        $removedUser = User::where('id', $userId)->firstOrFail();
+
+        if ($user->id !== $trip->user->id) {
+            return redirect()
+                ->route('trips.show', ['trip_id' => $trip->id])
+                ->with('error', 'You are not the trip owner!');
+        }
+
+        if ($userId === $trip->user->id) {
+            return redirect()
+                ->route('trips.show', ['trip_id' => $trip->id])
+                ->with('error', 'You can\'t leave your trip, please delete it!');
+        }
+
+        $newParticipants = $trip->participants;
+
+        foreach ($newParticipants as $key => $item){
+            if ($item['id'] === $userId) {
+                unset($newParticipants[$key]);
+            }
+        }
+
+        $trip->participants = $newParticipants;
+        $trip->save();
+
+        return redirect()
+            ->back()
+            ->with('success', "You have successfully remove $removedUser->name from your trip!");
+    }
+
     public function delete(Request $request, $tripId)
     {
         $user = auth()->user();

@@ -60,8 +60,9 @@
                                         </button>
                                     </div>
 
-                                    <form @submit.prevent="updateTrip">
-                                        <div class="border-b border-gray-50 pb-6 pt-2">
+                                    <form @submit.prevent="updateTrip"
+                                          class="border-b border-gray-50 pb-6 pt-2"
+                                    >
                                             <div class="space-y-6 sm:space-y-5">
                                                 <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
                                                     <label for="name" class="block text-sm font-medium text-gray-100 sm:mt-px sm:pt-2">
@@ -102,7 +103,7 @@
                                                         />
                                                     </div>
                                                 </div>
-                                                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                                                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-b sm:border-gray-200 sm:py-4">
                                                     <label for="is_public"
                                                            class="flex flex-col text-sm font-medium text-gray-100 sm:mt-px sm:pt-2"
                                                     >
@@ -127,14 +128,37 @@
                                                 </div>
                                             </div>
 
-                                        </div>
-
                                         <div class="mt-5 sm:mt-6">
                                             <button type="submit" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm">
                                                 Update Trip
                                             </button>
                                         </div>
                                     </form>
+
+                                    <div class="border-b border-gray-50 pb-6 pt-2">
+                                        <h3 class="text-gray-100 tracking-wide mb-1.5">
+                                            Remove participant from your trip
+                                        </h3>
+                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:items-start">
+                                            <a v-for="participant in trip.participants"
+                                               onclick="return confirm('Are you sure you want to remove this participant from your trip ?')"
+                                               :href="route('trips.remove.user', {
+                                                   'trip_id': trip.id,
+                                                   'user_id': participant.id
+                                               })"
+                                               class="bg-blueGray-800 hover:bg-blueGray-900 transition duration-200 ease-in-out flex justify-center items-center rounded-md p-2 group"
+                                            >
+                                                <img :src="'/' + participant.avatar"
+                                                     :alt="participant.name + '\'s avatar'"
+                                                     class="w-8 h-8 rounded-md"
+                                                />
+
+                                                <span v-html="participant.name"
+                                                      class="ml-2 text-gray-200 group-hover:text-gray-50 text-sm"
+                                                />
+                                            </a>
+                                        </div>
+                                    </div>
 
                                     <div class="pt-2">
                                         <a onclick="return confirm('Are you sure you want to delete this trip')"

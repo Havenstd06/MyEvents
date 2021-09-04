@@ -35,6 +35,7 @@ Route::prefix('/trips')->middleware(['auth'])->group(function () {
     Route::put('/{trip_id}/{recordid}/join', [TripsController::class, 'join'])->name('trips.join');
     Route::get('/{trip_id}', [TripsController::class, 'show'])->name('trips.show');
     Route::post('/{trip_id}', [TripsController::class, 'update'])->name('trips.update');
+    Route::get('/{trip_id}/{user_id}/remove', [TripsController::class, 'removeUser'])->name('trips.remove.user');
     Route::get('/{trip_id}/delete', [TripsController::class, 'delete'])->name('trips.delete');
 });
 
