@@ -33,6 +33,8 @@ Route::prefix('/trips')->middleware(['auth'])->group(function () {
     Route::post('/{recordid}/create', [TripsController::class, 'create'])->name('trips.create');
     Route::get('/{trip_id}/{recordid}/join', [TripsController::class, 'showJoin'])->name('trips.join.show');
     Route::put('/{trip_id}/{recordid}/join', [TripsController::class, 'join'])->name('trips.join');
+    Route::get('/{trip_id}', [TripsController::class, 'show'])->name('trips.show');
+    Route::get('/{trip_id}/delete', [TripsController::class, 'delete'])->name('trips.delete');
 });
 
 // Profile

@@ -31,7 +31,8 @@ class TripsController extends Controller
                 'tripJoinLink' => route('trips.join.show', [
                     'trip_id' => $newTrip->id,
                     'recordid' => $newTrip->event_id
-                ])
+                ]),
+                'tripId' => $newTrip->id
             ],
             'success' => "$newTrip->name as been successfully created! Share the link to invite friends."
         ]);
@@ -85,8 +86,52 @@ class TripsController extends Controller
         $trip->save();
 
         return redirect()
-            ->route('events.show', ['recordid' => $trip->event_id])
+            ->route('trips.show', ['trip_id' => $trip->id])
             ->with('success', 'You have successfully joined the trip!');
     }
 
+    public function show(Request $request, $tripId)
+    {
+        $user = auth()->user();
+        $trip = Trip::where('id', $tripId)->firstOrFail();
+        $participantsId = [];
+        $participants = [];
+
+
+        foreach ($trip->participants as $participant) {
+            $participantsId[] = $participant['id'];
+
+            $participants[] = User::where('id', $participant['id'])->firstOrFail();
+        }
+
+        if (! in_array($user->id, $participantsId)) {
+            return redirect()
+                ->back()
+                ->with('error', 'You have not joined this trip!');
+        }
+
+        return Inertia::render('Trips/Show', [
+            'trip'          => $trip,
+            'organizer'     => $trip->user,
+            'participants'  => $participants,
+        ]);
+    }
+
+    public function delete(Request $request, $tripId)
+    {
+        $user = auth()->user();
+        $trip = Trip::where('id', $tripId)->firstOrFail();
+
+        if ($user->id !== $trip->user->id) {
+            return redirect()
+                ->route('trips.show', ['trip_id' => $trip->id])
+                ->with('error', 'You are not the trip owner!');
+        }
+
+        $trip->delete();
+
+        return redirect()
+            ->route('home')
+            ->with('success', 'You have successfully deleted the trip!');
+    }
 }
