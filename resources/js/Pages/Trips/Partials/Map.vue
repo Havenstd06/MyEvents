@@ -1,5 +1,6 @@
 <template>
     <GoogleMap
+        v-if="event.fields.latlon"
         api-key="AIzaSyAYM1kuVvZl8vVLfAXUzeClpVvR9n5jXFU"
         class="w-full h-64"
         :center="center"
@@ -7,6 +8,9 @@
     >
         <Marker :options="{ position: center }" />
     </GoogleMap>
+    <div v-else>
+        The map is not available for this event
+    </div>
 </template>
 
 <script>
