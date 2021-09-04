@@ -30,6 +30,7 @@ class UsersController extends Controller
             }
         }
 
+
         return Inertia::render('Users/Profile', [
             'user' => $user,
             'userOrganizedTrips' => $userOrganizedTrips,

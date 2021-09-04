@@ -48,30 +48,15 @@
                                Joined Trips
                             </span>
                         </div>
-                        <ul
-                            v-if="this.userJoinedTrips.length > 0"
-                        >
-                            <li
-                                v-for="trip in userJoinedTrips"
-                                :key="trip.id"
-                                class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3"
-                            >
-                                <a
-                                    v-if="trip.user_id !== user.id"
-                                   :href="route('trips.show', {'trip_id': trip.id})"
-                                   class="bg-blueGray-800 px-2 py-1.5 rounded-md group"
-                                >
-                                    <div
-                                        class="text-blueGray-200 group-hover:text-gray-400 transition duration-200 ease-in-out"
-                                        v-html="trip.name"
-                                    />
-                                    <div
-                                        class="text-gray-300 text-xs group-hover:text-gray-400 transition duration-200 ease-in-out"
-                                        v-html="user.name"
-                                    />
-                                </a>
-                            </li>
-                        </ul>
+                        <div v-if="this.userJoinedTrips.length > 0" class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3">
+                            <a v-for="trip in userJoinedTrips"
+                               :key="trip.id"
+                               :href="route('trips.show', {'trip_id': trip.id})"
+                               class="bg-blueGray-800 px-2 py-1.5 rounded-md group">
+                                <div class="text-blueGray-200 group-hover:text-gray-400 transition duration-200 ease-in-out" v-html="trip.name" />
+                                <div class="text-gray-300 text-xs group-hover:text-gray-400 transition duration-200 ease-in-out" v-html="trip.user.name" />
+                            </a>
+                        </div>
                         <div v-else>
                             <h2 class="text-lg text-gray-50">
                                 No Joined Trip
