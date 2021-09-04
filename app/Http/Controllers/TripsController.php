@@ -70,6 +70,12 @@ class TripsController extends Controller
             }
         }
 
+        if (count($trip->participants) >= $trip->max_person) {
+            return redirect()
+                ->route('events.show', ['recordid' => $trip->event_id])
+                ->with('error', 'This trip is full!');
+        }
+
         if (! empty($trip->participants)) {
             $trip->participants =
                 json_encode(
