@@ -90,17 +90,61 @@
                                             Trip name
                                         </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <input type="text" name="name" id="name" v-model="createTripForm.name" class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md" placeholder="My Awesome Trip" required />
-                                            <jet-input-error :message="createTripForm.errors.name" class="mt-2" />
+                                            <input type="text"
+                                                   name="name"
+                                                   id="name"
+                                                   v-model="createTripForm.name"
+                                                   class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md"
+                                                   placeholder="My Awesome Trip"
+                                                   required
+                                            />
+                                            <jet-input-error :message="createTripForm.errors.name"
+                                                             class="mt-2"
+                                            />
                                         </div>
                                     </div>
                                     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                                        <label for="max_person" class="block text-sm font-medium text-gray-100 sm:mt-px sm:pt-2">
-                                            Max trip person
+                                        <label for="max_person"
+                                               class="block text-sm font-medium text-gray-100 sm:mt-px sm:pt-2"
+                                        >
+                                            Max trip participants
                                         </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <input type="number" name="max_person" id="max_person" v-model="createTripForm.max_person" min="2" class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md" placeholder="10" required />
-                                            <jet-input-error :message="createTripForm.errors.max_person" class="mt-2" />
+                                            <input type="number"
+                                                   name="max_person"
+                                                   id="max_person"
+                                                   v-model="createTripForm.max_person"
+                                                   min="2"
+                                                   class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md"
+                                                   placeholder="10"
+                                                   required
+                                            />
+                                            <jet-input-error :message="createTripForm.errors.max_person"
+                                                             class="mt-2"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                                        <label for="is_public"
+                                               class="flex flex-col text-sm font-medium text-gray-100 sm:mt-px sm:pt-2"
+                                        >
+                                            <span>
+                                                Public Trip
+                                            </span>
+                                            <span class="text-xs">
+                                                (Anybody will be able to join)
+                                            </span>
+                                        </label>
+                                        <div class="mt-1 sm:mt-0">
+                                            <input type="checkbox"
+                                                   name="is_public"
+                                                   id="is_public"
+                                                   v-model="createTripForm.is_public"
+                                                   class="block mt-2.5 shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:text-sm border-blueGray-300 rounded-md"
+                                            />
+                                            <jet-input-error :message="createTripForm.errors.is_public"
+                                                             class="mt-2"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +246,8 @@ export default {
             createTripForm: this.$inertia.form({
                 _method: 'POST',
                 name: null,
-                max_person: null
+                max_person: null,
+                is_public: false
             }),
         }
     },

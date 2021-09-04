@@ -12,8 +12,9 @@ class TripsController extends Controller
     public function create(Request $request, $recordid)
     {
         $request->validate([
-            'name' => 'required|min:1|max:255',
-            'max_person' => 'required|min:1|integer',
+            'name'          => 'required|min:1|max:255',
+            'max_person'    => 'required|min:1|integer',
+            'is_public'     => 'boolean',
         ]);
 
         $user = auth()->user();
@@ -21,6 +22,7 @@ class TripsController extends Controller
         $newTrip = new Trip();
         $newTrip->name = $request->get('name');
         $newTrip->max_person = $request->get('max_person');
+        $newTrip->is_public = $request->has('is_public');
         $newTrip->user_id = $user->id;
         $newTrip->event_id = $recordid;
         $newTrip->participants = json_encode([$user->toArray()]);

@@ -56,7 +56,7 @@ export default {
 
     data() {
         const infos = [
-            { title: 'Trip Name', href: '#', icon: CalendarIcon, text: this.trip.name },
+            { title: `Trip Name - ${this.capitalizeWords(this.trip.is_public)} trip`, href: '#', icon: CalendarIcon, text: this.trip.name },
             { title: 'Organizer', href: '#', icon: UserIcon, text: this.organizer.name },
             { title: 'Max Participants', href: '#', icon: UserGroupIcon, text: this.trip.max_person },
             { title: 'Event Name', href: '#', icon: CalendarIcon, text: this.event.fields.title },
@@ -68,5 +68,11 @@ export default {
             infos
         }
     },
+
+    methods: {
+        capitalizeWords: function (string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+    }
 }
 </script>

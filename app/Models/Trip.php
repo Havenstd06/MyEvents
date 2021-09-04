@@ -26,4 +26,13 @@ class Trip extends Model
     {
         return json_decode($value, true);
     }
+
+    public function getIsPublicAttribute($value)
+    {
+        if ($value) {
+            return 'public';
+        }
+
+        return 'private';
+    }
 }

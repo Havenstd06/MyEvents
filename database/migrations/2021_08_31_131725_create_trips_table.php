@@ -17,6 +17,7 @@ class CreateTripsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('max_person')->default(0);
+            $table->integer('is_public')->default(0);
             $table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')
@@ -29,8 +30,7 @@ class CreateTripsTable extends Migration
             $table->timestamps();
         });
     }
-    //id
-    //createur, id-event, participant = array ->user_id
+
     /**
      * Reverse the migrations.
      *
