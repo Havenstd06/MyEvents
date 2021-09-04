@@ -3,41 +3,43 @@
     <div class="flex flex-col h-full overflow-y-auto">
       <div class="h-full grid grid-cols-12 gap-y-2">
 
-        <div class="col-start-1 col-end-8 p-3 rounded-lg">
+        <!--other-->
+        <div class="col-start-1 col-end-8 p-2 rounded-lg">
           <div class="flex flex-row items-center">
             <div class="flex flex-col items-center space-y-1 p-2 rounded-md">
               <img class="flex items-center justify-center h-8 w-auto rounded-md flex-shrink-0"
-                   src="https://eu.ui-avatars.com/api/?name=Thomas"
-              alt="Thomas" />
+                   src="https://myevents.test/avatars/69xf8z-11.png"
+              alt="Havens" />
 
               <h3 class="font-medium text-sm">
-                Thomas
+                Havens
               </h3>
             </div>
 
             <div class="relative text-sm py-2 px-4 shadow rounded-xl ml-1 bg-blueGray-900">
               <div>
-                Hey How are you today?
+                Hey, ready for the trip?
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-start-6 col-end-13 p-3 rounded-lg">
+        <!--Me-->
+        <div class="col-start-6 col-end-13 p-2 rounded-lg">
           <div class="flex items-center justify-start flex-row-reverse">
             <div class="flex flex-col items-center space-y-1 p-2 rounded-md">
               <img class="flex items-center justify-center h-8 w-auto rounded-md flex-shrink-0"
-                   src="https://eu.ui-avatars.com/api/?name=Maxence"
-                   alt="Maxence" />
+                   src="https://myevents.test/avatars/default.png"
+                   alt="Fieu" />
 
               <h3 class="font-medium text-sm">
-                Maxence
+                Fieu
               </h3>
             </div>
 
             <div class="relative text-sm py-2 px-4 shadow rounded-xl mr-1 bg-blueGray-900">
               <div>
-                Fine and you ?
+                Oh hell yea!
               </div>
             </div>
           </div>
