@@ -53,9 +53,9 @@ class UsersController extends Controller
         $user = auth()->user();
 
         $request->validate([
-            'name' => 'required|min:1|max:255',
-            'email' => 'required|min:1|max:255|email',
-            'description' => 'required|min:20|max:1000',
+            'name'          => 'required|min:1|max:255',
+            'email'         => 'required|min:1|max:255|email',
+            'description'   => 'required|min:5|max:1000',
         ]);
 
         $user->name = $request->get('name');
