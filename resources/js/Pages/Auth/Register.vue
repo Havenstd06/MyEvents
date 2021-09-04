@@ -27,7 +27,7 @@
             </div>
 
             <div class="mt-4">
-                <jet-label for="description" value="description" />
+                <jet-label for="description" value="Description" />
                 <jet-input id="description" type="text" class="mt-1 block w-full" v-model="form.description" required autocomplete="description" />
             </div>
 
