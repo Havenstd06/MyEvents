@@ -40,10 +40,17 @@
                     <!-- End of profile card -->
                 </div>
                 <!-- Right Side -->
-                <div class="w-full md:w-9/12 md:mx-2 h-64">
+                <div class="w-full md:w-9/12 md:mx-2"
+                     :class="`${$page.props.auth.user.id === organizer.id ?
+                         participants.length >= 3 ? 'h-106' : 'h-76' :
+                         participants.length >= 3 ? 'h-84' : 'h-76'
+                     }`"
+                >
                     <!-- Chat -->
-                    <div class="bg-blueGray-700 p-3 border-t-4 border-blueGray-400 shadow-sm">
-                        <Chat />
+                    <div class="bg-blueGray-700 h-full p-3 border-t-4 border-blueGray-400 shadow-sm">
+                        <Chat
+                            :participants="participants"
+                        />
                     </div>
                     <!-- End of Chat -->
                 </div>

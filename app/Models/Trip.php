@@ -15,6 +15,8 @@ class Trip extends Model
         'participants' => '{}'
     ];
 
+    protected $with = ['user'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

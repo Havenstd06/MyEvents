@@ -19,6 +19,12 @@ module.exports = {
             colors: {
                 ...defaultColors,
             },
+            height: {
+                50: '12.3rem',
+                76: '19.3rem',
+                84: '21.3rem',
+                106: '28.3rem'
+            }
         },
     },
 
