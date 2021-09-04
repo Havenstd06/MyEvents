@@ -99,7 +99,7 @@
                                             Max trip person
                                         </label>
                                         <div class="mt-1 sm:mt-0 sm:col-span-2">
-                                            <input type="number" name="max_person" id="max_person" v-model="createTripForm.max_person" min="0" class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md" placeholder="10" required />
+                                            <input type="number" name="max_person" id="max_person" v-model="createTripForm.max_person" min="2" class="max-w-lg block w-full shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:max-w-xs sm:text-sm border-blueGray-300 rounded-md" placeholder="10" required />
                                             <jet-input-error :message="createTripForm.errors.max_person" class="mt-2" />
                                         </div>
                                     </div>
