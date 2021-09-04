@@ -1,10 +1,10 @@
 <template>
-    <div class="w-full flex flex-col justify-center pl-1 pb-2.5">
+    <div class="w-full md:flex flex-col justify-center pl-1 pb-2.5">
         <h2 class="text-lg uppercase text-gray-200 tracking-wide">
             Trip & Event info
         </h2>
     </div>
-    <div class="flex items-center space-x-4 font-semibold text-gray-200 leading-8">
+    <div class="md:flex justify-center md:justify-start items-center md:space-x-4 space-y-4 md:space-y-0 font-semibold text-gray-200 leading-8">
         <div class="bg-blueGray-900 rounded-md p-2 h-48 w-48 bg-center bg-cover"
             :style="{backgroundImage: `url(${event.fields.image ?? 'https://limg.app/i/gHlTvX.png'})`}"
         />
