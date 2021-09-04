@@ -127,6 +127,10 @@
                                 <button type="submit" @click="handleCopy(tripJoinLink)" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-4">
                                     Copy Link to clipboard
                                 </button>
+
+                                <a :href="route('trips.show', {'trip_id': tripId})" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-3">
+                                    Visit my Trip Page
+                                </a>
                             </div>
 
                             <div v-if="isCreateTripLoading">
@@ -193,6 +197,7 @@ export default {
 
             isCreateTripLoading: false,
             tripJoinLink: null,
+            tripId: null,
 
             createTripForm: this.$inertia.form({
                 _method: 'POST',
@@ -224,6 +229,7 @@ export default {
                 onSuccess: (res) => {
                     this.isCreateTripLoading = false
                     this.tripJoinLink = res.props.data.tripJoinLink
+                    this.tripId = res.props.data.tripId
                 },
             });
         },
