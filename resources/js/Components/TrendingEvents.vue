@@ -1,6 +1,6 @@
 <template>
     <main class="max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
-        <div class="border-b border-gray-200 pt-24 pb-10">
+        <div class="border-b border-gray-200 pb-10">
             <h1 class="text-4xl font-extrabold tracking-tight text-gray-100">
                 Trending Events in {{ this.city ?? 'All over the world' }}
             </h1>
