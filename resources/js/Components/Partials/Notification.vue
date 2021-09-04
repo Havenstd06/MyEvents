@@ -1,7 +1,7 @@
 <template>
     <!-- Global notification live region, render this permanently at the end of the document -->
     <div class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start z-50">
-        <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+        <div class="w-full flex flex-col items-center space-y-4 sm:items-center">
             <!-- Notification panel, dynamically insert this into the live region when it needs to be displayed -->
             <transition
                 enter-active-class="transform ease-out duration-300 transition"
