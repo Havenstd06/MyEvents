@@ -2,10 +2,10 @@
     <main class="max-w-2xl mx-auto px-4 lg:max-w-7xl lg:px-8">
         <div class="border-b border-gray-200 pt-24 pb-10">
             <h1 class="text-4xl font-extrabold tracking-tight text-gray-100">
-                Trending Events in {{ this.city }}
+                Trending Events in {{ this.city ?? 'All over the world' }}
             </h1>
             <p class="mt-4 text-base text-gray-300">
-                Discover the most popular events near {{ this.city }}!
+                Discover the most popular events near {{ this.city ?? 'All over the world' }}!
             </p>
         </div>
 
@@ -25,19 +25,30 @@
                                     City
                                 </legend>
                                 <div class="pt-3 space-y-3">
-                                    <div v-for="city in cities"
+                                    <div v-for="cit in cities"
                                          class="flex items-center">
-                                        <input :id="city.value"
+                                        <input :id="cit.value"
                                                name="city"
-                                               @change="cityChange(city.label)"
+                                               @change="cityChange(cit.label)"
                                                type="radio"
                                                class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                                               :checked="city.checked"
+                                               :checked="cit.checked && city === cit.label"
+
                                         />
-                                        <label :for="city.value"
-                                               class="ml-3 text-sm text-gray-200"
-                                               v-html="city.label"
-                                        />
+                                        <div class="flex items-center justify-between w-full">
+                                            <label :for="cit.value"
+                                                   class="ml-3 text-sm text-gray-200"
+                                                   v-html="cit.label"
+                                            />
+
+                                            <div v-if="city === cit.label">
+                                                <button type="button"
+                                                        @click="cityChange(null)"
+                                                        class="text-sm text-red-600">
+                                                    <TrashIcon class="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div>
@@ -45,6 +56,7 @@
                                                name="custom_city"
                                                :value="city"
                                                @change="e => this.cityChange(e.target.value)"
+                                               placeholder="Marseille"
                                                class="shadow-sm bg-blueGray-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
@@ -89,6 +101,102 @@
                                                name="custom_category"
                                                :value="category"
                                                @change="e => this.categoryChange(e.target.value)"
+                                               placeholder="Concert"
+                                               class="shadow-sm bg-blueGray-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="pt-10">
+                            <fieldset role="group">
+                                <legend class="block font-medium text-gray-100">
+                                    Region (ex: Provence-Alpes-Côte d'Azur)
+                                </legend>
+                                <div class="pt-3 space-y-3">
+                                    <div>
+                                        <input type="text"
+                                               name="custom_region"
+                                               :value="region"
+                                               @change="e => this.regionChange(e.target.value)"
+                                               placeholder="Provence-Alpes-Côte d'Azur"
+                                               class="shadow-sm bg-blueGray-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="pt-10">
+                            <fieldset role="group">
+                                <legend class="block font-medium text-gray-100">
+                                    Department (ex: Bouches-du-Rhône)
+                                </legend>
+                                <div class="pt-3 space-y-3">
+                                    <div>
+                                        <input type="text"
+                                               name="custom_placename"
+                                               :value="department"
+                                               @change="e => this.departmentChange(e.target.value)"
+                                               placeholder="Bouches-du-Rhône"
+                                               class="shadow-sm bg-blueGray-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="pt-10">
+                            <fieldset role="group">
+                                <legend class="block font-medium text-gray-100">
+                                    Place Name (ex: LA MAGALONE)
+                                </legend>
+                                <div class="pt-3 space-y-3">
+                                    <div>
+                                        <input type="text"
+                                               name="custom_placename"
+                                               :value="placename"
+                                               @change="e => this.placenameChange(e.target.value)"
+                                               placeholder="LA MAGALONE"
+                                               class="shadow-sm bg-blueGray-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="pt-10">
+                            <fieldset role="group">
+                                <legend class="block font-medium text-gray-100">
+                                    Date start (ex: 2020-09-26)
+                                </legend>
+                                <div class="pt-3 space-y-3">
+                                    <div>
+                                        <input type="text"
+                                               name="custom_datestart"
+                                               :value="datestart"
+                                               @change="e => this.datestartChange(e.target.value)"
+                                               placeholder="2020-09-26"
+                                               class="shadow-sm bg-blueGray-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                                        />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="pt-10">
+                            <fieldset role="group">
+                                <legend class="block font-medium text-gray-100">
+                                    Date end (ex: 2020-09-27)
+                                </legend>
+                                <div class="pt-3 space-y-3">
+                                    <div>
+                                        <input type="text"
+                                               name="custom_dateend"
+                                               :value="dateend"
+                                               @change="e => this.dateendChange(e.target.value)"
+                                               placeholder="2020-09-27"
                                                class="shadow-sm bg-blueGray-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                         />
                                     </div>
@@ -146,6 +254,7 @@
 import { TrashIcon } from '@heroicons/vue/outline'
 import Loading from "@/Components/Loading";
 import Input from "@/Jetstream/Input";
+
 const cities =
     [
         { value: 'marseille', label: 'Marseille', checked: true },
@@ -184,7 +293,12 @@ export default {
             events: [],
             dataReady: false,
             city: 'Marseille',
-            category: null
+            category: null,
+            region: null,
+            department: null,
+            placename: null,
+            datestart: null,
+            dateend: null
         }
     },
 
@@ -207,9 +321,44 @@ export default {
             this.getEvents()
         },
 
+        regionChange: function(region) {
+            this.region = region
+            this.dataReady = false
+
+            this.getEvents()
+        },
+
+        departmentChange: function(department) {
+            this.department = department
+            this.dataReady = false
+
+            this.getEvents()
+        },
+
+        placenameChange: function(placename) {
+            this.placename = placename
+            this.dataReady = false
+
+            this.getEvents()
+        },
+
+        datestartChange: function(datestart) {
+            this.datestart = datestart
+            this.dataReady = false
+
+            this.getEvents()
+        },
+
+        dateendChange: function(dateend) {
+            this.dateend = dateend
+            this.dataReady = false
+
+            this.getEvents()
+        },
+
         getEvents: function () {
             axios
-                .get(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-cibul&q=&lang=fr&rows=18&facet=city&refine.city=${this.city}${this.category !== null ? `&refine.tags=${this.category}` : ''}&timezone=Europe%2FParis`)
+                .get(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-cibul&q=&lang=fr&rows=18&facet=city${this.city !== null ? `&refine.city=${this.city}`: ''}${this.category !== null ? `&refine.tags=${this.category}` : ''}${this.region !== null ? `&refine.region=${this.region}` : ''}${this.department !== null ? `&refine.department=${this.department}` : ''}${this.placename !== null ? `&refine.placename=${this.placename}` : ''}${this.datestart !== null ? `&refine.date_start=${this.datestart}` : ''}${this.dateend !== null ? `&refine.date_end=${this.dateend}` : ''}&timezone=Europe%2FParis`)
                 .then(response => {
                     this.dataReady = true
                     this.events = response.data.records
