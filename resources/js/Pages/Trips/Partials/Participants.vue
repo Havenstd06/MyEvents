@@ -10,7 +10,7 @@
             Participants (<span v-html="participants.length" />/<span v-html="trip.max_person" />)
         </h2>
     </div>
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div class="grid grid-cols-2 gap-4">
         <div
             v-for="participant in participants"
             :key="participant.id"
