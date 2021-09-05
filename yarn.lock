@@ -1156,6 +1156,11 @@
     "node-gyp" "^7.1.0"
     "read-package-json-fast" "^2.0.1"
 
+"@popperjs/core@^2.9.2":
+  "integrity" "sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw=="
+  "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.10.1.tgz"
+  "version" "2.10.1"
+
 "@tailwindcss/forms@^0.2.1":
   "integrity" "sha512-czfvEdY+J2Ogfd6RUSr/ZSUmDxTujr34M++YLnp2cCPC3oJ4kFvFMaRXA6cEXKw7F1hJuapdjXRjsXIEXGgORg=="
   "resolved" "https://registry.npmjs.org/@tailwindcss/forms/-/forms-0.2.1.tgz"
@@ -2807,6 +2812,11 @@
   dependencies:
     "assert-plus" "^1.0.0"
 
+"debounce@^1.2.1":
+  "integrity" "sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug=="
+  "resolved" "https://registry.npmjs.org/debounce/-/debounce-1.2.1.tgz"
+  "version" "1.2.1"
+
 "debug@^3.1.1":
   "integrity" "sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-3.2.7.tgz"
@@ -4353,6 +4363,11 @@
   "integrity" "sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA=="
   "resolved" "https://registry.npmjs.org/klona/-/klona-2.0.4.tgz"
   "version" "2.0.4"
+
+"laravel-echo@^1.11.2":
+  "integrity" "sha512-LiMTeWDLgI/bCTXJ8r96NcwE2sjWhzt3cIPDFri27EfMt9fcc1D/DBfXU5urOHaWrFwDQEHrdNzS16ewEQaWtA=="
+  "resolved" "https://registry.npmjs.org/laravel-echo/-/laravel-echo-1.11.2.tgz"
+  "version" "1.11.2"
 
 "laravel-mix@^6.0.6":
   "integrity" "sha512-GGDpeicvHYh6J6uickr1ZiDtJdNuKsQUjWrthB4MTaN0ZzxL0kLxpNXIRHGhpoEHM+2Tl/tA40ATIDAAumCyow=="
@@ -6015,6 +6030,13 @@
     "postcss" "^8.2.1"
     "postcss-selector-parser" "^6.0.2"
 
+"pusher-js@^7.0.3":
+  "integrity" "sha512-HIfCvt00CAqgO4W0BrdpPsDcAwy51rB6DN0VMC+JeVRRbo8mn3XTeUeIFjmmlRLZLX8rPhUtLRo7vPag6b8GCw=="
+  "resolved" "https://registry.npmjs.org/pusher-js/-/pusher-js-7.0.3.tgz"
+  "version" "7.0.3"
+  dependencies:
+    "tweetnacl" "^1.0.3"
+
 "qrcode-terminal@*":
   "version" "0.12.0"
 
@@ -7085,6 +7107,11 @@
   "resolved" "https://registry.npmjs.org/tweetnacl/-/tweetnacl-0.14.5.tgz"
   "version" "0.14.5"
 
+"tweetnacl@^1.0.3":
+  "integrity" "sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw=="
+  "resolved" "https://registry.npmjs.org/tweetnacl/-/tweetnacl-1.0.3.tgz"
+  "version" "1.0.3"
+
 "type-fest@^0.21.3":
   "integrity" "sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w=="
   "resolved" "https://registry.npmjs.org/type-fest/-/type-fest-0.21.3.tgz"
@@ -7272,7 +7299,7 @@
     "hash-sum" "^1.0.2"
     "loader-utils" "^1.0.2"
 
-"vue@^3.0.0", "vue@^3.0.5", "vue@>= 3", "vue@3":
+"vue@^3.0.0", "vue@^3.0.5", "vue@^3.2.1", "vue@>= 3", "vue@3":
   "integrity" "sha512-x7lwdnOSkceHQUXRVVHBaZzcp6v7M2CYtSZH75zZaT1mTjB4plC4KZHKP/5jAvdqOLBHZGwDSMkWXm3YbAufrA=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.8.tgz"
   "version" "3.2.8"
@@ -7285,6 +7312,14 @@
   "integrity" "sha512-xd8Wr2QkgN4CNDjxvJhLLkf0Cvy3zV7xt7ac0AHm70xGqXkaBSTRQ19jtTV4/Ym/par1uXj6UB55yXSPvWtXkA=="
   "resolved" "https://registry.npmjs.org/vue3-google-map/-/vue3-google-map-0.8.2.tgz"
   "version" "0.8.2"
+
+"vue3-popper@^1.2.1":
+  "integrity" "sha512-5dNp/ZBWOpPs+4/XulmKVQdlCvQkJD4ePRXJY6kd60TIwDgruEgDgGApdmO6s+M+QGjENV0mABbDLK1qCIoxgw=="
+  "resolved" "https://registry.npmjs.org/vue3-popper/-/vue3-popper-1.2.1.tgz"
+  "version" "1.2.1"
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+    "debounce" "^1.2.1"
 
 "walk-up-path@^1.0.0":
   "integrity" "sha512-hwj/qMDUEjCU5h0xr90KGCf0tg0/LgJbmOWgrWKYlcJZM7XvquvUJZ0G/HMGr7F7OQMOUuPHWP9JpriinkAlkg=="

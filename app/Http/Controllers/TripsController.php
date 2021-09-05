@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Trip;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,6 +35,10 @@ class TripsController extends Controller
         $newTrip->event_data = json_encode($event_data);
         $newTrip->participants = json_encode([$user->toArray()]);
         $newTrip->save();
+
+        $newRoom = new Room();
+        $newRoom->trip_id = $newTrip->id;
+        $newRoom->save();
 
         return back()->with([
             'data' => [
@@ -111,7 +116,6 @@ class TripsController extends Controller
         $trip = Trip::where('id', $tripId)->firstOrFail();
         $participantsId = [];
         $participants = [];
-
 
         foreach ($trip->participants as $participant) {
             $participantsId[] = $participant['id'];

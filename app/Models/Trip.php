@@ -22,6 +22,11 @@ class Trip extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function room()
+    {
+        return $this->hasOne(Room::class);
+    }
+
     public function getParticipantsAttribute($value)
     {
         return json_decode($value, true);

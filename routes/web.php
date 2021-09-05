@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\TripsController;
 use App\Http\Controllers\UsersController;
@@ -31,13 +32,21 @@ Route::get('/events/{recordid}', [EventsController::class, 'show'])->name('event
 // Trip
 Route::prefix('/trips')->middleware(['auth'])->group(function () {
     Route::post('/{recordid}/create', [TripsController::class, 'create'])->name('trips.create');
+
     Route::get('/{trip_id}/{recordid}/join', [TripsController::class, 'showJoin'])->name('trips.join.show');
     Route::put('/{trip_id}/{recordid}/join', [TripsController::class, 'join'])->name('trips.join');
+
     Route::get('/{trip_id}', [TripsController::class, 'show'])->name('trips.show');
+
     Route::post('/{trip_id}', [TripsController::class, 'update'])->name('trips.update');
+
     Route::get('/{trip_id}/{user_id}/leave', [TripsController::class, 'leaveUser'])->name('trips.leave.user');
     Route::get('/{trip_id}/{user_id}/remove', [TripsController::class, 'removeUser'])->name('trips.remove.user');
     Route::get('/{trip_id}/delete', [TripsController::class, 'delete'])->name('trips.delete');
+
+    Route::get('/chat/rooms', [ChatController::class, 'rooms']);
+    Route::get('/chat/rooms/{room}/messages', [ChatController::class, 'messages']);
+    Route::post('/chat/{room}', [ChatController::class, 'storeMessage']);
 });
 
 // Profile

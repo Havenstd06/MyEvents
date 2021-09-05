@@ -49,7 +49,7 @@
                     <!-- Chat -->
                     <div class="bg-blueGray-700 h-full p-3 border-t-4 border-blueGray-400 shadow-sm">
                         <Chat
-                            :participants="participants"
+                            :trip="trip"
                         />
                     </div>
                     <!-- End of Chat -->
@@ -67,11 +67,12 @@ import Default from "@/Layouts/Default";
 import EventInfo from "@/Pages/Trips/Partials/EventInfo";
 import Map from "@/Pages/Trips/Partials/Map";
 import Participants from "@/Pages/Trips/Partials/Participants";
-import Chat from "@/Pages/Trips/Partials/Chat";
 import Loading from "@/Components/Loading";
+import Chat from "@/Pages/Trips/Partials/Chat/Chat";
 export default {
     name: "Show",
     components: {
+        Window,
         Loading,
         Chat,
         Participants,
@@ -100,7 +101,12 @@ export default {
     methods: {
         getEvent: function () {
             axios
-                .get(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-cibul&q=&rows=18&facet=recordid&refine.recordid=${this.trip.event_id}&timezone=Europe%2FParis`)
+                .get(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-cibul&q=&rows=18&facet=recordid&refine.recordid=${this.trip.event_id}&timezone=Europe%2FParis`, {
+                    transformRequest: [function (data, headers) {
+                        delete headers['X-Socket-Id'];
+                        return data;
+                    }]
+                })
                 .then(response => {
                     this.event = response.data.records[0]
                     this.dataReady = true
