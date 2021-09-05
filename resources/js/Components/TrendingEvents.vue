@@ -311,50 +311,78 @@ export default {
     methods: {
         cityChange: function(city) {
             this.city = city
-            this.dataReady = false
 
+            if (city === '') {
+                this.city = null
+            }
+
+            this.dataReady = false
             this.getEvents()
         },
 
         categoryChange: function(category) {
             this.category = category
-            this.dataReady = false
 
+            if (category === '') {
+                this.category = null
+            }
+
+            this.dataReady = false
             this.getEvents()
         },
 
         regionChange: function(region) {
             this.region = region
-            this.dataReady = false
 
+            if (region === '') {
+                this.region = null
+            }
+
+            this.dataReady = false
             this.getEvents()
         },
 
         departmentChange: function(department) {
             this.department = department
-            this.dataReady = false
 
+            if (department === '') {
+                this.department = null
+            }
+
+            this.dataReady = false
             this.getEvents()
         },
 
         placenameChange: function(placename) {
             this.placename = placename
-            this.dataReady = false
 
+            if (placename === '') {
+                this.placename = null
+            }
+
+            this.dataReady = false
             this.getEvents()
         },
 
         datestartChange: function(datestart) {
             this.datestart = datestart
-            this.dataReady = false
 
+            if (datestart === '') {
+                this.datestart = null
+            }
+
+            this.dataReady = false
             this.getEvents()
         },
 
         dateendChange: function(dateend) {
             this.dateend = dateend
-            this.dataReady = false
 
+            if (dateend === '') {
+                this.dateend = null
+            }
+
+            this.dataReady = false
             this.getEvents()
         },
 
