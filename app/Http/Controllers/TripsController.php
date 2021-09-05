@@ -54,13 +54,22 @@ class TripsController extends Controller
 
     public function showJoin(Request $request, $trip_id, $recordid)
     {
+        $user = auth()->user();
         $trip = Trip::where('id', $trip_id)->firstOrFail();
         $organizer = $trip->user;
 
+        foreach ($trip->participants as $participant) {
+            if ($participant['id'] === $user->id) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'You have already joined trip!');
+            }
+        }
+
         return Inertia::render('Trips/Join', [
-            'trip' => $trip,
+            'trip'      => $trip,
             'organizer' => $organizer,
-            'recordid' => $recordid
+            'recordid'  => $recordid
         ]);
     }
 
@@ -68,7 +77,7 @@ class TripsController extends Controller
     {
         $trip = Trip::where('id', $trip_id)->firstOrFail();
         $organizer = $trip->user;
-        $joinedUser = User::where('id', $request->get('user_id'))->firstOrFail();
+        $joinedUser = auth()->user();
 
         if ($joinedUser->id === $organizer->id) {
             return redirect()
@@ -79,7 +88,7 @@ class TripsController extends Controller
         foreach ($trip->participants as $participant) {
             if ($participant['id'] === $joinedUser->id) {
                 return redirect()
-                    ->route('events.show', ['recordid' => $trip->event_id])
+                    ->back()
                     ->with('error', 'You have already joined trip!');
             }
         }
@@ -187,7 +196,7 @@ class TripsController extends Controller
         if ($userId === $trip->user->id) {
             return redirect()
                 ->route('trips.show', ['trip_id' => $trip->id])
-                ->with('error', 'You can\'t leave your trip!');
+                ->with('error', 'You can\'t remove yourself from your trip!');
         }
 
         $newParticipants = $trip->participants;
@@ -203,7 +212,7 @@ class TripsController extends Controller
 
         return redirect()
             ->back()
-            ->with('success', "You have successfully remove $removedUser->name from your trip!");
+            ->with('success', "You have successfully remove '$removedUser->name' from your trip!");
     }
 
     public function leaveUser(Request $request, $tripId, int $userId)

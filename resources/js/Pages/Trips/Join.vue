@@ -82,9 +82,7 @@ export default {
             this.$inertia.put(route('trips.join', {
                 'trip_id': this.trip.id,
                 'recordid': this.trip.event_id
-            }), {
-                'user_id': this.$page.props.auth.user.id
-            }, {
+            }), {}, {
                 preserveScroll: true,
                 onSuccess: () => {
                     this.hasClickedJoinedLoading = false
