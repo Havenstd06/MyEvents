@@ -53,7 +53,6 @@ import {Head, usePage} from '@inertiajs/inertia-vue3';
 import Default from "../Layouts/Default";
 import {computed} from "vue";
 import TrendingEvents from "@/Components/TrendingEvents";
-import Perks from "@/Components/Perks";
 import JoinableTrips from "@/Components/JoinableTrips";
 
 
@@ -63,7 +62,6 @@ export default {
     components: {
         JoinableTrips,
         TrendingEvents,
-        Perks,
         Head,
         Default,
         TabGroup,
