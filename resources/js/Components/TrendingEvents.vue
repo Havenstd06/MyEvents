@@ -363,7 +363,7 @@ export default {
                 .get(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-cibul&q=&lang=fr&rows=18&facet=city${this.city !== null ? `&refine.city=${this.city}`: ''}${this.category !== null ? `&refine.tags=${this.category}` : ''}${this.region !== null ? `&refine.region=${this.region}` : ''}${this.department !== null ? `&refine.department=${this.department}` : ''}${this.placename !== null ? `&refine.placename=${this.placename}` : ''}${this.datestart !== null ? `&refine.date_start=${this.datestart}` : ''}${this.dateend !== null ? `&refine.date_end=${this.dateend}` : ''}&timezone=Europe%2FParis`, {
                     transformRequest: [function (data, headers) {
                         delete headers['X-Socket-Id'];
-                        return data;
+                        return data; // fix socket id error
                     }]
                 })
                 .then(response => {

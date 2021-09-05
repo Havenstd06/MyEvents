@@ -264,7 +264,7 @@ export default {
                 .get(`https://public.opendatasoft.com/api/records/1.0/search/?dataset=evenements-publics-cibul&q=&rows=18&facet=recordid&refine.recordid=${this.recordId}&timezone=Europe%2FParis`, {
                     transformRequest: [function (data, headers) {
                         delete headers['X-Socket-Id'];
-                        return data;
+                        return data; // fix socket id error
                     }]
                 })
                 .then(response => {
