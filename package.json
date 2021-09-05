@@ -33,6 +33,7 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "@googlemaps/js-api-loader": "^1.12.2",
         "@headlessui/vue": "^1.4.1",
         "@heroicons/vue": "^1.0.4",
         "@tailwindcss/line-clamp": "^0.2.1",
