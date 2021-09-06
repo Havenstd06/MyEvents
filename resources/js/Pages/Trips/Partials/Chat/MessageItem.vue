@@ -1,14 +1,22 @@
 <template>
 
-    <div class="flex flex-col items-center space-y-1 p-2 rounded-md">
+    <Popper
+        arrow
+        :hover="true"
+        placement="top"
+        :content="message.user.name"
+    >
+    <div class="w-24 flex flex-col items-center space-y-1 p-2 rounded-md">
         <img class="flex items-center justify-center h-8 w-auto rounded-full flex-shrink-0"
              :src="'/' + message.user.avatar"
-             alt="Havens" />
+             :alt="message.user.name + '\'s avatar'" />
 
-        <h3 class="font-medium text-sm">
-            {{ message.user.name }}
-        </h3>
+
+        <h3 class="font-medium text-center text-sm"
+            v-html="message.user.name.split(' ')[0]"
+        />
     </div>
+    </Popper>
 
     <Popper
         arrow
@@ -65,8 +73,7 @@ export default {
     padding: 0.375rem 0.5rem;
     border-radius: 50px;
     color: #F8FAFC;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.25rem;
 }
