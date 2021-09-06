@@ -132,13 +132,11 @@
                                                 Public Trip
                                             </span>
                                             <span class="text-xs">
-                                                (Anybody will be able to join)
+                                                (Checked: anybody will be able to join)
                                             </span>
                                         </label>
                                         <div class="mt-1 sm:mt-0">
                                             <input type="checkbox"
-                                                   name="is_public"
-                                                   id="is_public"
                                                    v-model="createTripForm.is_public"
                                                    class="block mt-2.5 shadow-sm focus:ring-blueGray-500 focus:border-blueGray-500 sm:text-sm border-blueGray-300 rounded-md"
                                             />
@@ -155,22 +153,29 @@
                                 </div>
                             </form>
 
-                            <div v-if="tripJoinLink">
-                                <h3 class="text-gray-100 mb-3">
-                                    Here is your invitation link, send it to your friends to invite them to your trip!
-                                </h3>
+                            <div v-if="tripJoinLink && trip">
+                                <div v-if="trip.is_public === 'public'">
+                                    <h3 class="text-gray-100 mb-3">
+                                        Here is your invitation link, send it to your friends to invite them to your trip!
+                                    </h3>
 
-                                <div class="w-full rounded-md break-words bg-blueGray-800 px-4 py-2">
-                                    <Link class="text-gray-100 hover:text-gray-200 focus:outline-none transition duration-200 ease-in-out"
-                                       :href="tripJoinLink"
-                                       v-html="tripJoinLink"
-                                    >
-                                    </Link>
+                                    <div class="w-full rounded-md break-words bg-blueGray-800 px-4 py-2">
+                                        <Link class="text-gray-100 hover:text-gray-200 focus:outline-none transition duration-200 ease-in-out"
+                                              :href="tripJoinLink"
+                                              v-html="tripJoinLink"
+                                        >
+                                        </Link>
+                                    </div>
+
+                                    <button type="submit" @click="handleCopy(tripJoinLink)" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-4">
+                                        Copy Link to clipboard
+                                    </button>
                                 </div>
-
-                                <button type="submit" @click="handleCopy(tripJoinLink)" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-4">
-                                    Copy Link to clipboard
-                                </button>
+                                <div v-else>
+                                    <h3 class="text-gray-100 mb-3">
+                                        To invite participants to your private trip, go to your trip page and click on "Add participants".
+                                    </h3>
+                                </div>
 
                                 <Link :href="route('trips.show', {'trip_id': tripId})" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blueGray-900 text-base font-medium text-white hover:bg-blueGray-800 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blueGray-500 sm:text-sm mt-3">
                                     Visit my Trip Page
@@ -244,12 +249,13 @@ export default {
             isCreateTripLoading: false,
             tripJoinLink: null,
             tripId: null,
+            trip: null,
 
             createTripForm: this.$inertia.form({
                 _method: 'POST',
                 name: null,
                 max_person: null,
-                is_public: false,
+                is_public: true,
             }),
         }
     },
@@ -282,12 +288,15 @@ export default {
                 'event_image': this.event.fields.image,
                 'event_date': this.event.fields.date_start + ' to ' + this.event.fields.date_end,
             }))
-                .post(route('trips.create', {'recordid': this.recordId}), {
+                .post(route('trips.create', {
+                    'recordid': this.recordId
+                }), {
                 preserveScroll: true,
                 onSuccess: (res) => {
                     this.isCreateTripLoading = false
                     this.tripJoinLink = res.props.data.tripJoinLink
                     this.tripId = res.props.data.tripId
+                    this.trip = res.props.data.trip
                 },
             });
         },

@@ -5,6 +5,7 @@
         </h3>
         <div class="flex flex-col space-y-2 mb-3">
             <button type="submit"
+                    v-if="trip.is_public === 'public'"
                     @click="handleCopy(route('trips.join.show', {
                             'trip_id': trip.id,
                             'recordid': trip.event_id
@@ -14,12 +15,61 @@
                 Copy invite url
             </button>
 
+            <button type="submit"
+                    v-else
+                    @click="setIsAddParticipantsOpen(true)"
+                    class="w-full text-center uppercase bg-blueGray-800 hover:bg-blueGray-900 transition duration-200 ease-in-out px-1.5 py-1 rounded-md text-gray-200 tracking-wide"
+            >
+                Add participants
+            </button>
+
             <button type="button"
                     @click="setIsSettingsOpen(true)"
                     class="w-full text-center uppercase bg-blueGray-800 hover:bg-blueGray-900 transition duration-200 ease-in-out px-1.5 py-1 rounded-md text-gray-200 tracking-wide"
             >
                 Trip settings
             </button>
+
+            <TransitionRoot as="template" :show="isAddParticipantsOpen">
+                <Dialog as="div" class="fixed z-40 inset-0 overflow-y-auto" @close="isAddParticipantsOpen = false">
+                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+                            <DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                        </TransitionChild>
+
+                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                        <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                            <div class="inline-block align-bottom bg-blueGray-700 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full sm:p-6">
+                                <h2 class="text-xl text-center text-gray-50 uppercase tracking-wide mb-3">
+                                    Add Participants
+                                </h2>
+                                <p class="text-sm text-gray-200">
+                                    These users will be added to your trip by force, the invitation link is not valid for private trips.
+                                </p>
+
+                                <form @submit.prevent="addParticipants" class="mt-2">
+                                    <div class="flex items-center justify-between space-x-2">
+                                        <Input type="email"
+                                               class="w-full py-1 text-sm"
+                                               v-model="addParticipantsForm.email"
+                                               placeholder="mail@example.com"
+                                        />
+
+                                        <ButtonNormal type="submit" class="py-1">
+                                            Add
+                                        </ButtonNormal>
+                                    </div>
+
+                                    <jet-input-error :message="addParticipantsForm.errors.email"
+                                                     class="mt-2"
+                                    />
+                                </form>
+                            </div>
+                        </TransitionChild>
+                    </div>
+                </Dialog>
+            </TransitionRoot>
+
 
             <TransitionRoot as="template" :show="isSettingsOpen">
                 <Dialog as="div" class="fixed z-40 inset-0 overflow-y-auto" @close="isSettingsOpen = false">
@@ -36,7 +86,8 @@
                                 </h2>
 
                                 <div class="space-y-4">
-                                    <div class="border-b border-gray-50 pb-6">
+                                    <div v-if="trip.is_public === 'public'"
+                                        class="border-b border-gray-50 pb-6">
                                         <h4 class="px-2 text-gray-100 mb-3">
                                             Here is your invitation link, send it to your friends to invite them to your trip!
                                         </h4>
@@ -192,9 +243,13 @@ import {
 import JetInputError from '@/Jetstream/InputError'
 import Notification from "@/Components/Partials/Notification";
 import {ref} from "vue";
+import ButtonNormal from "@/Components/Buttons/ButtonNormal";
+import Input from "@/Jetstream/Input";
 
 export default {
     components: {
+        Input,
+        ButtonNormal,
         Notification,
         Dialog,
         DialogOverlay,
@@ -213,12 +268,23 @@ export default {
 
     data() {
         let isSettingsOpen = ref(false);
+        let isAddParticipantsOpen = ref(false);
 
         return {
             isSettingsOpen,
             setIsSettingsOpen: function(value) {
                 isSettingsOpen.value = value
             },
+
+            isAddParticipantsOpen,
+            setIsAddParticipantsOpen: function(value) {
+                isAddParticipantsOpen.value = value
+            },
+
+            addParticipantsForm: this.$inertia.form({
+                _method: 'PUT',
+                email: null
+            }),
 
             updateTripForm: this.$inertia.form({
                 _method: 'POST',
@@ -232,6 +298,18 @@ export default {
     },
 
     methods: {
+        addParticipants: function () {
+            this.addParticipantsForm.put(route('trips.force-join', {
+                'trip_id': this.trip.id,
+                'recordid': this.trip.event_id
+            }), {
+                preserveScroll: true,
+                onSuccess: (res) => {
+                    this.addParticipantsForm.email = null
+                },
+            });
+        },
+
         updateTrip: function () {
             this.updateTripForm.post(route('trips.update', {'trip_id': this.trip.id}), {
                 preserveScroll: true,

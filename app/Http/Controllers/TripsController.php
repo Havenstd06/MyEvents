@@ -29,7 +29,7 @@ class TripsController extends Controller
         $newTrip = new Trip();
         $newTrip->name = $request->get('name');
         $newTrip->max_person = $request->get('max_person');
-        $newTrip->is_public = $request->has('is_public');
+        $newTrip->is_public = $request->get('is_public');
         $newTrip->user_id = $user->id;
         $newTrip->event_id = $recordid;
         $newTrip->event_data = json_encode($event_data);
@@ -46,7 +46,8 @@ class TripsController extends Controller
                     'trip_id' => $newTrip->id,
                     'recordid' => $newTrip->event_id
                 ]),
-                'tripId' => $newTrip->id
+                'tripId' => $newTrip->id,
+                'trip' => $newTrip
             ],
             'success' => "$newTrip->name as been successfully created! Share the link to invite friends."
         ]);
@@ -57,6 +58,12 @@ class TripsController extends Controller
         $user = auth()->user();
         $trip = Trip::where('id', $trip_id)->firstOrFail();
         $organizer = $trip->user;
+
+        if ($trip->is_public === 'private') {
+            return redirect()
+                ->back()
+                ->with('error', 'This trip is private, you must be invited to join.');
+        }
 
         foreach ($trip->participants as $participant) {
             if ($participant['id'] === $user->id) {
@@ -99,24 +106,63 @@ class TripsController extends Controller
                 ->with('error', 'This trip is full!');
         }
 
-        if (! empty($trip->participants)) {
-            $trip->participants =
-                json_encode(
-                    array_merge(
-                        $trip->participants,
-                        [$joinedUser->toArray()]
-                    )
-                );
-        } else {
-            $trip->participants = json_encode(
-                [$joinedUser->toArray()]
+        $trip->participants =
+            json_encode(
+                array_merge(
+                    $trip->participants,
+                    [$joinedUser->toArray()]
+                )
             );
-        }
         $trip->save();
 
         return redirect()
             ->route('trips.show', ['trip_id' => $trip->id])
             ->with('success', 'You have successfully joined the trip!');
+    }
+
+    public function forceJoin(Request $request, $trip_id, $recordid)
+    {
+        $request->validate([
+            'email'  => 'required|email|exists:users',
+        ]);
+
+        $trip = Trip::where('id', $trip_id)->firstOrFail();
+        $organizer = $trip->user;
+        $joinedUser = User::where('email', $request->get('email'))->firstOrFail();
+
+        if ($joinedUser->id === $organizer->id) {
+            return redirect()
+                ->back()
+                ->with('error', 'You cannot force join yourself on your own trip!');
+        }
+
+        foreach ($trip->participants as $participant) {
+            if ($participant['id'] === $joinedUser->id) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'This user has already joined trip!');
+            }
+        }
+
+        if (count($trip->participants) >= $trip->max_person) {
+            return redirect()
+                ->back()
+                ->with('error', 'This trip is full!');
+        }
+
+        $trip->participants =
+            json_encode(
+                array_merge(
+                    $trip->participants,
+                    [$joinedUser->toArray()]
+                )
+            );
+
+        $trip->save();
+
+        return redirect()
+            ->back()
+            ->with('success', "You have successfully added '$joinedUser->name' to the trip!");
     }
 
     public function show(Request $request, $tripId)

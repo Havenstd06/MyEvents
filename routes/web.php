@@ -35,6 +35,7 @@ Route::prefix('/trips')->middleware(['auth'])->group(function () {
 
     Route::get('/{trip_id}/{recordid}/join', [TripsController::class, 'showJoin'])->name('trips.join.show');
     Route::put('/{trip_id}/{recordid}/join', [TripsController::class, 'join'])->name('trips.join');
+    Route::put('/{trip_id}/{recordid}/force-join', [TripsController::class, 'forceJoin'])->name('trips.force-join');
 
     Route::get('/{trip_id}', [TripsController::class, 'show'])->name('trips.show');
 
