@@ -56,6 +56,7 @@ Route::prefix('/profile')->group(function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('/{user}/edit', [UsersController::class, 'edit'])->name('profile.edit');
         Route::post('/{user}/edit', [UsersController::class, 'update'])->name('profile.update');
+        Route::delete('/user/avatar', [UsersController::class, 'destroyProfileAvatar'])->name('profile.current-user-avatar.destroy');
     });
 
 });
