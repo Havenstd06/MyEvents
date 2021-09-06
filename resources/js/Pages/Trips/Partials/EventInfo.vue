@@ -38,6 +38,10 @@
                                 <div class="text-sm font-medium text-gray-400"
                                      v-html="info.text"
                                 />
+                                <div v-if="info.sub_text"
+                                    class="text-sm font-medium text-gray-400"
+                                     v-html="info.sub_text"
+                                />
                         </div>
                     </div>
                 </div>
@@ -73,7 +77,7 @@ export default {
 
     data() {
         const infos = [
-            { title: `Trip Name - ${this.capitalizeWords(this.trip.is_public)} trip`, href: '#', icon: CalendarIcon, text: this.trip.name },
+            { title: `Trip Name - ${this.capitalizeWords(this.trip.is_public)} trip`, href: '#', icon: CalendarIcon, text: this.trip.name, sub_text: `${this.event.fields.date_start} - ${this.event.fields.date_end}` },
             { title: 'Organizer', href: '#', icon: UserIcon, text: this.organizer.name },
             { title: 'Max Participants', href: '#', icon: UserGroupIcon, text: this.trip.max_person },
             { title: 'Event Name', href: '#', icon: CalendarIcon, text: this.event.fields.title },
