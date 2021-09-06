@@ -243,7 +243,9 @@
                             </div>
                         </a>
                     </div>
-                    <div v-if="events.length === 0">
+                    <div v-if="events.length === 0"
+                        class="col-span-3 bg-blueGray-700 px-3 py-2 rounded-md"
+                    >
                         <div class="px-6 py-4 whitespace-nowrap font-medium text-gray-300">
                             No events found! ☹️
                         </div>
