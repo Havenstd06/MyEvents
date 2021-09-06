@@ -17,7 +17,7 @@ use Intervention\Image\Facades\Image as InterImage;
 class SocialController extends Controller
 {
     protected $providers = [
-        'github', 'twitter', 'discord', 'snapchat'
+        'github', 'twitter', 'discord', 'facebook'
     ];
 
     public function redirectToProvider($driver)
@@ -58,7 +58,7 @@ class SocialController extends Controller
     {
         $user = User::where('email', $providerUser->getEmail())->first();
 
-        if($user) {
+        if ($user) {
 
             $user->update([
                 'provider'              => $driver,
@@ -69,7 +69,7 @@ class SocialController extends Controller
         } else {
 
             $user = User::create([
-                'name'                  => $providerUser->getNickname(),
+                'name'                  => $providerUser->getNickname() ?? $providerUser->getName(),
                 'email'                 => $providerUser->getEmail(),
                 'avatar'                => $providerUser->getAvatar(),
                 'provider'              => $driver,

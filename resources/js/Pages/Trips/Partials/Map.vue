@@ -1,7 +1,7 @@
 <template>
     <GoogleMap
         v-if="event.fields.latlon"
-        api-key="AIzaSyAYM1kuVvZl8vVLfAXUzeClpVvR9n5jXFU"
+        :api-key="google_api_key"
         class="w-full h-64"
         :center="center"
         :zoom="15"
@@ -23,7 +23,8 @@ export default {
     },
 
     props: {
-        event: Array
+        event: Array,
+        google_api_key: String
     },
 
     data() {

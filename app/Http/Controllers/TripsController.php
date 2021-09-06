@@ -139,9 +139,10 @@ class TripsController extends Controller
         }
 
         return Inertia::render('Trips/Show', [
-            'trip'          => $trip,
-            'organizer'     => $trip->user,
-            'participants'  => $participants,
+            'trip'              => $trip,
+            'organizer'         => $trip->user,
+            'participants'      => $participants,
+            'google_api_key'    => config('services.google.api_key')
         ]);
     }
 

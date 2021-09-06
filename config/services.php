@@ -30,6 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'api_key'     => env('GOOGLE_API_KEY'),
+    ],
+
     'github' => [
         'client_id'     => env('GITHUB_ID'),
         'client_secret' => env('GITHUB_SECRET'),
@@ -51,10 +55,10 @@ return [
         'avatar_default_extension' => env('DISCORD_EXTENSION_DEFAULT', 'jpg'), // only pick from jpg, png, webp
     ],
 
-    'snapchat' => [
-        'client_id'     => env('SNAPCHAT_ID'),
-        'client_secret' => env('SNAPCHAT_SECRET'),
-        'redirect'      => env('APP_URL') . '/oauth/snapchat/callback',
+    'facebook' => [
+        'client_id'     => env('FACEBOOK_ID'),
+        'client_secret' => env('FACEBOOK_SECRET'),
+        'redirect'      => env('APP_URL') . '/oauth/facebook/callback',
     ],
 
 ];

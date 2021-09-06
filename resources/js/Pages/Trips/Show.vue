@@ -14,15 +14,16 @@
                 </div>
                 <!-- End of Event Info -->
 
-                <!-- Event Info -->
+                <!-- Map -->
                 <div class="w-full">
                     <div class="bg-blueGray-700 p-3 border-t-4 border-blueGray-400">
                         <Map
                             :event="event"
+                            :google_api_key="google_api_key"
                         />
                     </div>
                 </div>
-                <!-- End of Event Info -->
+                <!-- End of Map -->
             </div>
 
 
@@ -84,7 +85,8 @@ export default {
     props: {
         trip: Array,
         organizer: Array,
-        participants: Array
+        participants: Array,
+        google_api_key: String
     },
 
     data() {
