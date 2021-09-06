@@ -51,10 +51,6 @@ export default {
     }
   },
   methods: {
-    /**
-     * Send the message to the corresponding room.
-     *
-     */
     sendMessage () {
       if (!this.message) {
         return
