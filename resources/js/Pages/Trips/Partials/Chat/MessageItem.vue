@@ -19,8 +19,16 @@
         <div
             class="relative text-sm py-2 px-4 shadow rounded-xl ml-1"
             :class="decorativeClasses"
-            v-html="message.text"
-        />
+        >
+            <a v-if="message.text.substring(0, 8) === 'https://'"
+               :href="message.text"
+               target="_blank"
+               v-html="message.text"
+               class="text-blue-500 hover:text-blue-600 underline"
+            >
+            </a>
+            <span v-else v-html="message.text" />
+        </div>
     </Popper>
 
 </template>
@@ -41,7 +49,7 @@ export default {
         return 'bg-blueGray-900'
       }
       return 'bg-gray-900'
-    }
+    },
   },
   methods: {
     readableDate (date) {
