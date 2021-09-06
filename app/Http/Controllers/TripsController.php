@@ -68,8 +68,9 @@ class TripsController extends Controller
         foreach ($trip->participants as $participant) {
             if ($participant['id'] === $user->id) {
                 return redirect()
-                    ->back()
-                    ->with('error', 'You have already joined trip!');
+                    ->route('trips.show', [
+                        'trip_id' => $trip->id
+                    ]);
             }
         }
 
