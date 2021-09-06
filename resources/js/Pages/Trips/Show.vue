@@ -57,8 +57,13 @@
                 </div>
             </div>
         </div>
-        <div v-else class="w-full mt-32 flex items-center justify-center">
+        <div v-else
+             class="w-full mt-32 flex flex-col items-center justify-center"
+        >
             <Loading />
+            <h1 class="text-lg tracking-wide font-semibold mt-3">
+                World's fastest api loading...
+            </h1>
         </div>
     </default>
 </template>
