@@ -76,7 +76,7 @@
                         <tr v-if="trips.length === 0">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="font-medium text-gray-300">
-                                    No joinable trip available ☹️
+                                    No joinable trip available! ☹️
                                 </div>
                             </td>
                             <td></td>

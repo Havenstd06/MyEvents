@@ -211,7 +211,9 @@
                 <h2 id="product-heading" class="sr-only">Trending Events in Marseille</h2>
 
                 <div v-if="dataReady" class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
-                    <div v-for="event in events" :key="event.fields.id" class="group relative bg-blueGray-700 rounded-md flex flex-col overflow-hidden">
+                    <div v-for="event in events"
+                         :key="event.fields.id"
+                         class="group relative bg-blueGray-700 rounded-md flex flex-col overflow-hidden">
                         <a :href="route('events.show', {recordid: event.recordid})">
                             <div class="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
                                 <img :src="event.fields.image ?? 'https://limg.app/i/gHlTvX.png'"
@@ -240,6 +242,11 @@
                                 </div>
                             </div>
                         </a>
+                    </div>
+                    <div v-if="events.length === 0">
+                        <div class="px-6 py-4 whitespace-nowrap font-medium text-gray-300">
+                            No events found! ☹️
+                        </div>
                     </div>
                 </div>
                 <div v-else class="w-full mt-20 flex justify-center items-center">
