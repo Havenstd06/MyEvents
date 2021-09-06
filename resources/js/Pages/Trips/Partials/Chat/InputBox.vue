@@ -15,7 +15,7 @@
             <div class="ml-2">
                 <button
                     @click="sendMessage"
-                    class="flex items-center justify-center bg-blueGray-500 hover:bg-blueGray-600 rounded-md text-white px-4 py-1.5 flex-shrink-0"
+                    class="flex items-center justify-center bg-blueGray-500 hover:bg-blueGray-600 rounded-md text-white px-4 py-1 flex-shrink-0"
                 >
                     <span>Send</span>
 
